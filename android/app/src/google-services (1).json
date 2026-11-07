@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "843720573402",
+    "project_id": "amsterdam-759e2",
+    "storage_bucket": "amsterdam-759e2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843720573402:android:7798ad5866aa15a86580e3",
+        "android_client_info": {
+          "package_name": "com.hasan.amsterdam"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1s9T8i0EIoObJ1gpJs3YOysRAIhCVrL4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
