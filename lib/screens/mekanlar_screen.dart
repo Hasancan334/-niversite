@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/dil.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -66,8 +67,8 @@ class _MekanlarScreenState extends State<MekanlarScreen> {
         backgroundColor: Colors.white,
         elevation: 0.5,
         centerTitle: true,
-        title: const Text(
-          'Anlaşmalı Mekanlar',
+        title: Text(
+          tx('Anlaşmalı Mekanlar', 'Partnerplekken', 'Partner places'),
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w600,
@@ -85,7 +86,7 @@ class _MekanlarScreenState extends State<MekanlarScreen> {
                 if (snapshot.hasError) {
                   return _buildEmptyState(
                     icon: Icons.error_outline,
-                    text: 'Bir hata oluştu',
+                    text: tx('Bir hata oluştu', 'Er is een fout opgetreden', 'An error occurred'),
                     color: Colors.redAccent,
                   );
                 }
@@ -99,7 +100,7 @@ class _MekanlarScreenState extends State<MekanlarScreen> {
                 if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
                   return _buildEmptyState(
                     icon: Icons.store_outlined,
-                    text: 'Henüz anlaşmalı mekan eklenmemiş',
+                    text: tx('Henüz anlaşmalı mekan eklenmemiş', 'Er zijn nog geen partnerplekken toegevoegd', 'No partner places added yet'),
                   );
                 }
 
@@ -268,7 +269,7 @@ class _MekanlarScreenState extends State<MekanlarScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '$indirimOrani İndirim',
+                                  '$indirimOrani ${tx('İndirim', 'korting', 'discount')}',
                                   style: const TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w700,
@@ -277,7 +278,7 @@ class _MekanlarScreenState extends State<MekanlarScreen> {
                                 ),
                                 const SizedBox(height: 2),
                                 Text(
-                                  'Kod: $indirimKodu',
+                                  '${tx('Kod', 'Code', 'Code')}: $indirimKodu',
                                   style: TextStyle(
                                     fontSize: 13,
                                     color: Colors.grey[600],
@@ -409,7 +410,7 @@ class _MekanlarScreenState extends State<MekanlarScreen> {
                       child: Column(
                         children: [
                           Text(
-                            '$indirimOrani İndirim',
+                            '$indirimOrani ${tx('İndirim', 'korting', 'discount')}',
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w700,
@@ -442,7 +443,7 @@ class _MekanlarScreenState extends State<MekanlarScreen> {
                           ),
                           const SizedBox(height: 10),
                           Text(
-                            'Kasada bu kodu söyleyin',
+                            tx('Kasada bu kodu söyleyin', 'Noem deze code bij de kassa', 'Mention this code at the checkout'),
                             style: TextStyle(
                               fontSize: 13,
                               color: Colors.grey[600],
@@ -469,20 +470,20 @@ class _MekanlarScreenState extends State<MekanlarScreen> {
                             showDialog(
                               context: context,
                               builder: (_) => AlertDialog(
-                                title: const Row(
+                                title: Row(
                                   children: [
                                     Icon(Icons.info_outline, color: primaryColor),
                                     SizedBox(width: 8),
-                                    Text('Zaten Kullandınız'),
+                                    Text(tx('Zaten Kullandınız', 'Al gebruikt', 'Already used')),
                                   ],
                                 ),
-                                content: const Text(
-                                  'Bugün bu mekanda zaten indirim kullandınız. Yarın tekrar kullanabilirsiniz!',
+                                content: Text(
+                                  tx('Bugün bu mekanda zaten indirim kullandınız. Yarın tekrar kullanabilirsiniz!', 'Je hebt vandaag hier al korting gebruikt. Morgen kun je het weer gebruiken!', 'You have already used a discount here today. You can use it again tomorrow!'),
                                 ),
                                 actions: [
                                   TextButton(
                                     onPressed: () => Navigator.pop(context),
-                                    child: const Text('Tamam'),
+                                    child: Text(tx('Tamam', 'OK', 'OK')),
                                   ),
                                 ],
                               ),
@@ -497,12 +498,12 @@ class _MekanlarScreenState extends State<MekanlarScreen> {
                               showDialog(
                                 context: context,
                                 builder: (_) => AlertDialog(
-                                  title: const Text('Konum İzni Gerekli'),
-                                  content: const Text('İndirimi kullanmak için konum izni vermelisiniz.'),
+                                  title: Text(tx('Konum İzni Gerekli', 'Locatietoestemming nodig', 'Location permission required')),
+                                  content: Text(tx('İndirimi kullanmak için konum izni vermelisiniz.', 'Geef locatietoestemming om de korting te gebruiken.', 'You need to allow location access to use the discount.')),
                                   actions: [
                                     TextButton(
                                       onPressed: () => Navigator.pop(context),
-                                      child: const Text('Tamam'),
+                                      child: Text(tx('Tamam', 'OK', 'OK')),
                                     ),
                                   ],
                                 ),
@@ -515,12 +516,12 @@ class _MekanlarScreenState extends State<MekanlarScreen> {
                               showDialog(
                                 context: context,
                                 builder: (_) => AlertDialog(
-                                  title: const Text('Konum Alınamadı'),
-                                  content: const Text('Konumunuz alınamadı. Lütfen konum servisinizi açın.'),
+                                  title: Text(tx('Konum Alınamadı', 'Locatie niet beschikbaar', 'Location unavailable')),
+                                  content: Text(tx('Konumunuz alınamadı. Lütfen konum servisinizi açın.', 'Je locatie kon niet worden bepaald. Zet je locatieservice aan.', 'Your location could not be determined. Please turn on location services.')),
                                   actions: [
                                     TextButton(
                                       onPressed: () => Navigator.pop(context),
-                                      child: const Text('Tamam'),
+                                      child: Text(tx('Tamam', 'OK', 'OK')),
                                     ),
                                   ],
                                 ),
@@ -539,20 +540,20 @@ class _MekanlarScreenState extends State<MekanlarScreen> {
                               showDialog(
                                 context: context,
                                 builder: (_) => AlertDialog(
-                                  title: const Row(
+                                  title: Row(
                                     children: [
                                       Icon(Icons.location_off, color: Colors.redAccent),
                                       SizedBox(width: 8),
-                                      Text('Çok Uzaksınız'),
+                                      Text(tx('Çok Uzaksınız', 'Te ver weg', 'Too far away')),
                                     ],
                                   ),
                                   content: Text(
-                                    'İndirimi kullanmak için mekana yakın olmalısınız.\n\nMesafe: ${mesafe.toInt()} metre',
+                                    tx('İndirimi kullanmak için mekana yakın olmalısınız.\n\nMesafe: ${mesafe.toInt()} metre', 'Je moet in de buurt van de plek zijn om de korting te gebruiken.\n\nAfstand: ${mesafe.toInt()} meter', 'You need to be near the venue to use the discount.\n\nDistance: ${mesafe.toInt()} meters'),
                                   ),
                                   actions: [
                                     TextButton(
                                       onPressed: () => Navigator.pop(context),
-                                      child: const Text('Tamam'),
+                                      child: Text(tx('Tamam', 'OK', 'OK')),
                                     ),
                                   ],
                                 ),
@@ -590,20 +591,20 @@ class _MekanlarScreenState extends State<MekanlarScreen> {
                             showDialog(
                               context: context,
                               builder: (_) => AlertDialog(
-                                title: const Row(
+                                title: Row(
                                   children: [
                                     Icon(Icons.check_circle, color: Colors.green, size: 28),
                                     SizedBox(width: 10),
-                                    Text('Başarılı!'),
+                                    Text(tx('Başarılı!', 'Gelukt!', 'Success!')),
                                   ],
                                 ),
-                                content: const Column(
+                                content: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Text('İndirim kullanımınız kaydedildi.'),
+                                    Text(tx('İndirim kullanımınız kaydedildi.', 'Je kortinggebruik is geregistreerd.', 'Your discount use has been recorded.')),
                                     SizedBox(height: 12),
                                     Text(
-                                      '🎉 Afiyet olsun!',
+                                      tx('🎉 Afiyet olsun!', '🎉 Eet smakelijk!', '🎉 Enjoy your meal!'),
                                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                                     ),
                                   ],
@@ -614,7 +615,7 @@ class _MekanlarScreenState extends State<MekanlarScreen> {
                                       Navigator.pop(context);
                                       Navigator.pop(context);
                                     },
-                                    child: const Text('Tamam'),
+                                    child: Text(tx('Tamam', 'OK', 'OK')),
                                   ),
                                 ],
                               ),
@@ -623,12 +624,12 @@ class _MekanlarScreenState extends State<MekanlarScreen> {
                             showDialog(
                               context: context,
                               builder: (_) => AlertDialog(
-                                title: const Text('Hata'),
-                                content: const Text('Bir hata oluştu. Lütfen tekrar deneyin.'),
+                                title: Text(tx('Hata', 'Fout', 'Error')),
+                                content: Text(tx('Bir hata oluştu. Lütfen tekrar deneyin.', 'Er is een fout opgetreden. Probeer het opnieuw.', 'An error occurred. Please try again.')),
                                 actions: [
                                   TextButton(
                                     onPressed: () => Navigator.pop(context),
-                                    child: const Text('Tamam'),
+                                    child: Text(tx('Tamam', 'OK', 'OK')),
                                   ),
                                 ],
                               ),
@@ -636,8 +637,8 @@ class _MekanlarScreenState extends State<MekanlarScreen> {
                           }
                         },
                         icon: const Icon(Icons.check_circle_outline, size: 22),
-                        label: const Text(
-                          'İndirimi Kullandım',
+                        label: Text(
+                          tx('İndirimi Kullandım', 'Ik heb de korting gebruikt', 'I used the discount'),
                           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                         ),
                         style: ElevatedButton.styleFrom(
@@ -666,7 +667,7 @@ class _MekanlarScreenState extends State<MekanlarScreen> {
                           const SizedBox(width: 10),
                           Expanded(
                             child: Text(
-                              'İndirimi aldıktan sonra bu butona basın',
+                              tx('İndirimi aldıktan sonra bu butona basın', 'Druk op deze knop nadat je de korting hebt gekregen', 'Press this button after receiving the discount'),
                               style: TextStyle(fontSize: 13, color: Colors.grey[700]),
                             ),
                           ),
@@ -678,8 +679,8 @@ class _MekanlarScreenState extends State<MekanlarScreen> {
 
                     // Açıklama
                     if (aciklama.isNotEmpty) ...[
-                      const Text(
-                        'Açıklama',
+                      Text(
+                        tx('Açıklama', 'Beschrijving', 'Description'),
                         style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
                       ),
                       const SizedBox(height: 8),
@@ -695,8 +696,8 @@ class _MekanlarScreenState extends State<MekanlarScreen> {
                     ],
 
                     // Adres & Telefon
-                    if (adres.isNotEmpty) _buildInfoRow(Icons.location_on_outlined, 'Adres', adres),
-                    if (telefon.isNotEmpty) _buildInfoRow(Icons.phone_outlined, 'Telefon', telefon),
+                    if (adres.isNotEmpty) _buildInfoRow(Icons.location_on_outlined, tx('Adres', 'Adres', 'Address'), adres),
+                    if (telefon.isNotEmpty) _buildInfoRow(Icons.phone_outlined, tx('Telefon', 'Telefoon', 'Phone'), telefon),
 
                     const SizedBox(height: 24),
 
@@ -715,7 +716,7 @@ class _MekanlarScreenState extends State<MekanlarScreen> {
                                 }
                               },
                               icon: const Icon(Icons.directions_outlined, size: 20),
-                              label: const Text('Yol Tarifi'),
+                              label: Text(tx('Yol Tarifi', 'Route', 'Directions')),
                               style: OutlinedButton.styleFrom(
                                 foregroundColor: primaryColor,
                                 side: BorderSide(color: primaryColor.withOpacity(0.4)),
@@ -738,7 +739,7 @@ class _MekanlarScreenState extends State<MekanlarScreen> {
                                 }
                               },
                               icon: const Icon(Icons.phone_outlined, size: 20),
-                              label: const Text('Ara'),
+                              label: Text(tx('Ara', 'Bellen', 'Call')),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: primaryColor,
                                 foregroundColor: Colors.white,

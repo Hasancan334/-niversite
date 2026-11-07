@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/dil.dart';
 import '../config/university_config.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../config/app_colors.dart';
@@ -8,7 +9,7 @@ class HakkindaScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('BİZ KİMİZ & İLETİŞİM'),
+        title: Text(tx('BİZ KİMİZ & İLETİŞİM', 'OVER ONS & CONTACT', 'ABOUT US & CONTACT')),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(24),
@@ -33,7 +34,7 @@ class HakkindaScreen extends StatelessWidget {
 
             // UYGULAMA ADI
             Text(
-              '${UniversityConfig.name}\nGenç Mobil',
+              '${UniversityConfig.name}\n${UniversityConfig.appName}',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 24,
@@ -45,7 +46,7 @@ class HakkindaScreen extends StatelessWidget {
             SizedBox(height: 8),
 
             Text(
-              'Versiyon 1.0.0',
+              tx('Versiyon 1.0.0', 'Versie 1.0.0', 'Version 1.0.0'),
               style: TextStyle(
                 fontSize: 14,
                 color: AppColors.textSecondary,
@@ -62,8 +63,8 @@ class HakkindaScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
-                '${UniversityConfig.name} öğrencileri için geliştirilmiş mobil uygulamadır. '
-                    'Günlük yemek listesi, anlaşmalı mekanlar, ders notları ve daha fazlasını içerir.',
+                tx('${UniversityConfig.name} öğrencileri için geliştirilmiş mobil uygulamadır. ', 'Een mobiele app voor studenten van ${UniversityConfig.name}. ', 'A mobile app for students of ${UniversityConfig.name}. ') +
+                    tx('Günlük yemek listesi, anlaşmalı mekanlar, ders notları ve daha fazlasını içerir.', 'Met het dagmenu, partnerplekken, studiemateriaal en nog veel meer. Dit is geen officiële app van de Universiteit van Amsterdam.', 'Includes the daily menu, partner places, study materials and much more. This is not an official app of the University of Amsterdam.'),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 15,
@@ -77,7 +78,7 @@ class HakkindaScreen extends StatelessWidget {
 
             // GELİŞTİRİCİ BİLGİSİ
             Text(
-              'Geliştirici Şirket:',
+              tx('Geliştirici Şirket:', 'Ontwikkelaar:', 'Developer:'),
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -101,7 +102,7 @@ class HakkindaScreen extends StatelessWidget {
 
             // İLETİŞİM BUTONLARI
             Text(
-              'İletişim:',
+              tx('İletişim:', 'Contact:', 'Contact:'),
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -146,7 +147,7 @@ class HakkindaScreen extends StatelessWidget {
 
             // TELIF HAKKI
             Text(
-              '© 2026 Bumerang Yazılım\nTüm hakları saklıdır.',
+              tx('© 2026 Bumerang Yazılım\nTüm hakları saklıdır.', '© 2026 Bumerang Yazılım\nAlle rechten voorbehouden.', '© 2026 Bumerang Yazılım\nAll rights reserved.'),
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 12,

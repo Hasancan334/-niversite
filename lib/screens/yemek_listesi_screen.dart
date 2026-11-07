@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/dil.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../config/app_colors.dart';
@@ -40,6 +41,11 @@ class _YemekListesiScreenState extends State<YemekListesiScreen> {
     'ocak': 1, 'şubat': 2, 'mart': 3, 'nisan': 4, 'mayıs': 5, 'haziran': 6,
     'temmuz': 7, 'ağustos': 8, 'eylül': 9, 'ekim': 10, 'kasım': 11,
     'aralık': 12,
+    'april': 4, 'september': 9, 'november': 11,
+    'januari': 1, 'februari': 2, 'maart': 3, 'mei': 5, 'juni': 6, 'juli': 7,
+    'augustus': 8, 'oktober': 10, 'december': 12,
+    'january': 1, 'february': 2, 'march': 3, 'may': 5, 'june': 6, 'july': 7,
+    'august': 8, 'october': 10,
   };
 
   /// Dokümanın gününü bulur: önce "sira" (20261103), yoksa "tarih" metni
@@ -57,7 +63,7 @@ class _YemekListesiScreenState extends State<YemekListesiScreen> {
     }
 
     final t = (m['tarih'] ?? '').toString();
-    final r1 = RegExp(r'(\d{1,2})[./](\d{1,2})[./](\d{4})').firstMatch(t);
+    final r1 = RegExp(r'(\d{1,2})[./-](\d{1,2})[./-](\d{4})').firstMatch(t);
     if (r1 != null) {
       return DateTime(int.parse(r1.group(3)!), int.parse(r1.group(2)!),
           int.parse(r1.group(1)!));
@@ -86,7 +92,7 @@ class _YemekListesiScreenState extends State<YemekListesiScreen> {
     return Scaffold(
       bottomNavigationBar: BannerAdWidget(),
       appBar: AppBar(
-        title: Text('YEMEK LİSTESİ'),
+        title: Text(tx('YEMEK LİSTESİ', 'MENU', 'MENU')),
       ),
       body: Column(
         children: [
@@ -103,12 +109,12 @@ class _YemekListesiScreenState extends State<YemekListesiScreen> {
                             size: 64, color: AppColors.error),
                         SizedBox(height: 16),
                         Text(
-                          'Bir hata oluştu',
+                          tx('Bir hata oluştu', 'Er is een fout opgetreden', 'An error occurred'),
                           style: TextStyle(fontSize: 18),
                         ),
                         SizedBox(height: 8),
                         Text(
-                          'Lütfen daha sonra tekrar deneyin',
+                          tx('Lütfen daha sonra tekrar deneyin', 'Probeer het later opnieuw', 'Please try again later'),
                           style: TextStyle(
                             fontSize: 14,
                             color: AppColors.textSecondary,
@@ -139,7 +145,7 @@ class _YemekListesiScreenState extends State<YemekListesiScreen> {
                         ),
                         SizedBox(height: 16),
                         Text(
-                          'Henüz yemek listesi eklenmemiş',
+                          tx('Henüz yemek listesi eklenmemiş', 'Er is nog geen menu toegevoegd', 'No menu has been added yet'),
                           style: TextStyle(
                             fontSize: 18,
                             color: AppColors.textSecondary,
@@ -180,7 +186,7 @@ class _YemekListesiScreenState extends State<YemekListesiScreen> {
                     child: Padding(
                       padding: EdgeInsets.all(24),
                       child: Text(
-                        'Bu hafta için yemek listesi henüz eklenmemiş',
+                        tx('Bu hafta için yemek listesi henüz eklenmemiş', 'Voor deze week is nog geen menu toegevoegd', 'No menu has been added for this week yet'),
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 18,
@@ -255,7 +261,7 @@ class _YemekListesiScreenState extends State<YemekListesiScreen> {
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Text(
-                                    'BUGÜN',
+                                    tx('BUGÜN', 'VANDAAG', 'TODAY'),
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 11,

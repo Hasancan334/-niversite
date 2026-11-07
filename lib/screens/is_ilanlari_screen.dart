@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/dil.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../config/app_colors.dart';
@@ -28,14 +29,14 @@ class IsIlanlariScreen extends StatelessWidget {
       child: Scaffold(
         bottomNavigationBar: BannerAdWidget(),
         appBar: AppBar(
-          title: Text('HARÇLIK KAPISI'),
+          title: Text(tx('HARÇLIK KAPISI', 'BIJBANEN', 'STUDENT JOBS')),
           bottom: TabBar(
             indicatorColor: Colors.white,
             labelColor: Colors.white,
             unselectedLabelColor: Colors.white70,
             tabs: [
-              Tab(text: '⚡ Günlük İşler'),
-              Tab(text: '🕒 Yarı Zamanlı'),
+              Tab(text: tx('⚡ Günlük İşler', '⚡ Klusjes', '⚡ Gigs')),
+              Tab(text: tx('🕒 Yarı Zamanlı', '🕒 Bijbaan', '🕒 Part-time')),
             ],
           ),
         ),
@@ -86,7 +87,7 @@ class _IlanListesi extends StatelessWidget {
               children: [
                 Icon(Icons.error_outline, size: 64, color: AppColors.error),
                 SizedBox(height: 16),
-                Text('Bir hata oluştu', style: TextStyle(fontSize: 18)),
+                Text(tx('Bir hata oluştu', 'Er is een fout opgetreden', 'An error occurred'), style: TextStyle(fontSize: 18)),
               ],
             ),
           );
@@ -109,7 +110,7 @@ class _IlanListesi extends StatelessWidget {
                       size: 64, color: AppColors.textSecondary),
                   SizedBox(height: 16),
                   Text(
-                    'Şu an bu kategoride ilan yok.\nSık sık göz at, yeni ilanlar ekleniyor!',
+                    tx('Şu an bu kategoride ilan yok.\nSık sık göz at, yeni ilanlar ekleniyor!', 'Er zijn nu geen advertenties in deze categorie.\nKijk vaak terug, er komen steeds nieuwe bij!', 'There are no listings in this category right now.\nCheck back often, new ones are added!'),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize: 16, color: AppColors.textSecondary),
@@ -272,13 +273,13 @@ class _IlanListesi extends StatelessWidget {
               ],
               SizedBox(height: 20),
               if (telefon.isNotEmpty)
-                _buton(Icons.call, 'Ara: $telefon', AppColors.primary,
+                _buton(Icons.call, '${tx('Ara', 'Bel', 'Call')}: $telefon', AppColors.primary,
                         () => _ac('tel:${telefon.replaceAll(' ', '')}')),
               if (whatsapp.isNotEmpty)
-                _buton(Icons.chat, 'WhatsApp ile yaz', Color(0xFF25D366),
+                _buton(Icons.chat, tx('WhatsApp ile yaz', 'Stuur een WhatsApp', 'Message on WhatsApp'), Color(0xFF25D366),
                         () => _ac('https://wa.me/$whatsapp')),
               if (link.isNotEmpty)
-                _buton(Icons.open_in_new, 'Başvuru linki', AppColors.accent,
+                _buton(Icons.open_in_new, tx('Başvuru linki', 'Naar de advertentie', 'Apply link'), AppColors.accent,
                         () => _ac(link)),
             ],
           ),

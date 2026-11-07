@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import '../l10n/dil.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../config/app_colors.dart';
 
@@ -74,7 +75,7 @@ class _HaberSliderState extends State<HaberSlider> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(etkinlik ? '🎉 ETKİNLİK' : '📢 DUYURU',
+                      Text(etkinlik ? tx('🎉 ETKİNLİK', '🎉 EVENEMENT', '🎉 EVENT') : tx('📢 DUYURU', '📢 NIEUWS', '📢 NEWS'),
                           style: TextStyle(
                               color: Colors.white70,
                               fontSize: 11,

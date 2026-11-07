@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/dil.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../config/app_colors.dart';
 
@@ -14,6 +15,7 @@ import 'ders_notlari_screen.dart';
 import 'kulupler_screen.dart';
 import 'sohbet_screen.dart';
 import 'admin_screen.dart';
+import 'karsilama_screen.dart';
 import '../config/flavor.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
@@ -97,6 +99,14 @@ class _AnaSayfaState extends State<AnaSayfa> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0.5,
+        actions: [
+          if (kAmsterdam)
+            IconButton(
+              tooltip: tx('Dil', 'Taal', 'Language'),
+              icon: Icon(Icons.language, color: AppColors.primary),
+              onPressed: () => dilSecimiGoster(context),
+            ),
+        ],
         title: Row(
           mainAxisAlignment : MainAxisAlignment.center,
           children: [
@@ -130,7 +140,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                     style: const TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF8036E0),
+                      color: kAmsterdam ? AppColors.primary : Color(0xFF8036E0),
                     ),
                   ),
                 ),
@@ -153,7 +163,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                 children: [_buildMenuButton(
                   context,
                   icon: '🎓',
-                  title: 'Öğrenci\nOtomasyonu',
+                  title: tx('Öğrenci\nOtomasyonu', 'Canvas &\nStudentenportaal', 'Canvas &\nStudent portal'),
                   onTap: () async {
                     final url = Uri.parse(UniversityConfig.obsUrl);
                     await launchUrl(url, mode: LaunchMode.externalApplication);
@@ -163,49 +173,49 @@ class _AnaSayfaState extends State<AnaSayfa> {
                   _buildMenuButton(
                     context,
                     icon: '💸',
-                    title: 'Harçlık\nKapısı',
+                    title: tx('Harçlık\nKapısı', 'Bijbanen\n& klusjes', 'Student\njobs'),
                     onTap: () => _navigateWithAd(context, IsIlanlariScreen()),
                   ),
                   _buildMenuButton(
                     context,
                     icon: '🍽️',
-                    title: 'Günlük\nYemek Menüsü',
+                    title: tx('Günlük\nYemek Menüsü', 'Menu van\nde dag', 'Menu of\nthe day'),
                     onTap: () => _navigateWithAd(context, YemekListesiScreen()),
                   ),
                   _buildMenuButton(
                     context,
                     icon: '📚',
-                    title: 'Ders\nNotları',
+                    title: tx('Ders\nNotları', 'Studie-\nmateriaal', 'Study\nmaterials'),
                     onTap: () => _navigateWithAd(context, DersNotlariScreen()),
                   ),
                   _buildMenuButton(
                     context,
                     icon: '👥',
-                    title: 'Kulüpler',
+                    title: tx('Kulüpler', 'Verenigingen', 'Student\nclubs'),
                     onTap: () => _navigateWithAd(context, KuluplerScreen()),
                   ),
                   _buildMenuButton(
                     context,
                     icon: '💬',
-                    title: 'Goygoy\nOdası',
+                    title: tx('Goygoy\nOdası', 'Studenten-\nchat', 'Student\nchat'),
                     onTap: () => _navigateWithAd(context, SohbetScreen()),
                   ),
                   _buildMenuButton(
                     context,
                     icon: '📢',
-                    title: 'Duyurular\n& Etkinlikler',
+                    title: tx('Duyurular\n& Etkinlikler', 'Nieuws &\nEvenementen', 'News &\nEvents'),
                     onTap: () => _navigateWithAd(context, DuyurularScreen()),
                   ),_buildMenuButton(
                     context,
                     icon: '🍔',
-                    title: 'Anlaşmalı\nMekanlar',
+                    title: tx('Anlaşmalı\nMekanlar', 'Partner-\nplekken', 'Partner\nplaces'),
                     onTap: () => _navigateWithAd(context, MekanlarScreen()),
                   ),
 
                   _buildMenuButton(
                     context,
                     icon: 'ℹ️',
-                    title: 'Hakkımızda',
+                    title: tx('Hakkımızda', 'Over\nons', 'About\nus'),
                     onTap: () => _navigateWithAd(context, HakkindaScreen()),
                   ),
                 ],

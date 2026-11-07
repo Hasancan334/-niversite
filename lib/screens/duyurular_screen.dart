@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/dil.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -47,14 +48,14 @@ class _DuyurularScreenState extends State<DuyurularScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('DUYURULAR & ETKİNLİKLER'),
+        title: Text(tx('DUYURULAR & ETKİNLİKLER', 'NIEUWS & EVENEMENTEN', 'NEWS & EVENTS')),
         bottom: TabBar(
           controller: _tabController,
           indicatorColor: AppColors.white,
           tabs: [
-            Tab(text: 'Hepsi'),
-            Tab(text: 'Duyurular'),
-            Tab(text: 'Etkinlikler'),
+            Tab(text: tx('Hepsi', 'Alles', 'All')),
+            Tab(text: tx('Duyurular', 'Nieuws', 'News')),
+            Tab(text: tx('Etkinlikler', 'Evenementen', 'Events')),
           ],
         ),
       ),
@@ -93,7 +94,7 @@ class _DuyurularScreenState extends State<DuyurularScreen>
               children: [
                 Icon(Icons.error_outline, size: 64, color: AppColors.error),
                 SizedBox(height: 16),
-                Text('Bir hata oluştu', style: TextStyle(fontSize: 18)),
+                Text(tx('Bir hata oluştu', 'Er is een fout opgetreden', 'An error occurred'), style: TextStyle(fontSize: 18)),
               ],
             ),
           );
@@ -118,10 +119,10 @@ class _DuyurularScreenState extends State<DuyurularScreen>
                 SizedBox(height: 16),
                 Text(
                   tip == null
-                      ? 'Henüz duyuru veya etkinlik yok'
+                      ? tx('Henüz duyuru veya etkinlik yok', 'Nog geen nieuws of evenementen', 'No news or events yet')
                       : tip == 'duyuru'
-                      ? 'Henüz duyuru yok'
-                      : 'Henüz etkinlik yok',
+                      ? tx('Henüz duyuru yok', 'Nog geen nieuws', 'No news yet')
+                      : tx('Henüz etkinlik yok', 'Nog geen evenementen', 'No events yet'),
                   style: TextStyle(
                     fontSize: 18,
                     color: AppColors.textSecondary,
@@ -202,7 +203,7 @@ class _DuyurularScreenState extends State<DuyurularScreen>
                                 ),
                                 SizedBox(width: 6),
                                 Text(
-                                  isEtkinlik ? 'ETKİNLİK' : 'DUYURU',
+                                  isEtkinlik ? tx('ETKİNLİK', 'EVENEMENT', 'EVENT') : tx('DUYURU', 'NIEUWS', 'NEWS'),
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.bold,
@@ -306,7 +307,7 @@ class _DuyurularScreenState extends State<DuyurularScreen>
 
     try {
       if (tarih is Timestamp) {
-        return DateFormat('d MMMM y', 'tr_TR').format(tarih.toDate());
+        return DateFormat('d MMMM y', Dil.locale).format(tarih.toDate());
       } else if (tarih is String) {
         return tarih;
       }
@@ -388,7 +389,7 @@ class _DuyurularScreenState extends State<DuyurularScreen>
                           ),
                           SizedBox(width: 8),
                           Text(
-                            isEtkinlik ? 'ETKİNLİK' : 'DUYURU',
+                            isEtkinlik ? tx('ETKİNLİK', 'EVENEMENT', 'EVENT') : tx('DUYURU', 'NIEUWS', 'NEWS'),
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
@@ -487,7 +488,7 @@ class _DuyurularScreenState extends State<DuyurularScreen>
                             }
                           },
                           icon: Icon(Icons.open_in_new),
-                          label: Text('Detaylı Bilgi'),
+                          label: Text(tx('Detaylı Bilgi', 'Meer informatie', 'More information')),
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.all(16),
                           ),

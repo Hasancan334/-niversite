@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../config/app_colors.dart';
+import '../l10n/dil.dart';
 
 class SohbetScreen extends StatefulWidget {
   @override
@@ -18,6 +20,12 @@ class _SohbetScreenState extends State<SohbetScreen> {
     _isimYukle();
   }
 
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   Future<void> _isimYukle() async {
     final prefs = await SharedPreferences.getInstance();
     final isim = prefs.getString('sohbet_isim');
@@ -27,19 +35,23 @@ class _SohbetScreenState extends State<SohbetScreen> {
       setState(() => _isim = isim);
     }
   }
+
   Future<void> _sikayetEt(String mesajId, Map<String, dynamic> d) async {
     final onay = await showDialog<bool>(
       context: context,
       builder: (_) => AlertDialog(
-        title: Text('Mesajı şikayet et'),
-        content: Text('Bu mesaj uygunsuz içerik barındırıyor mu?'),
+        title: Text(tx('Mesajı şikayet et', 'Bericht melden', 'Report message')),
+        content: Text(tx(
+            'Bu mesaj uygunsuz içerik barındırıyor mu?',
+            'Bevat dit bericht ongepaste inhoud?',
+            'Does this message contain inappropriate content?')),
         actions: [
           TextButton(
               onPressed: () => Navigator.pop(context, false),
-              child: Text('Vazgeç')),
+              child: Text(tx('Vazgeç', 'Annuleren', 'Cancel'))),
           TextButton(
               onPressed: () => Navigator.pop(context, true),
-              child: Text('Şikayet et')),
+              child: Text(tx('Şikayet et', 'Melden', 'Report'))),
         ],
       ),
     );
@@ -54,21 +66,27 @@ class _SohbetScreenState extends State<SohbetScreen> {
 
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Şikayetiniz alındı, teşekkürler.')),
+        SnackBar(
+            content: Text(tx(
+                'Şikayetiniz alındı, teşekkürler.',
+                'Bedankt, je melding is ontvangen.',
+                'Thanks, your report has been received.'))),
       );
     }
   }
-  Future<void> _isimSor() async {
-    final c = TextEditingController();
+
+  Future<void> _isimSor({bool degistir = false}) async {
+    final c = TextEditingController(text: degistir ? (_isim ?? '') : '');
     await showDialog(
       context: context,
-      barrierDismissible: false,
+      barrierDismissible: degistir,
       builder: (_) => AlertDialog(
-        title: Text('Takma adın?'),
+        title: Text(tx('Takma adın?', 'Je bijnaam?', 'Your nickname?')),
         content: TextField(
           controller: c,
           maxLength: 15,
-          decoration: InputDecoration(hintText: 'Örn: Ahmet'),
+          decoration: InputDecoration(
+              hintText: tx('Örn: Ahmet', 'Bijv. Sanne', 'E.g. Alex')),
         ),
         actions: [
           TextButton(
@@ -79,7 +97,7 @@ class _SohbetScreenState extends State<SohbetScreen> {
               setState(() => _isim = c.text.trim());
               Navigator.pop(context);
             },
-            child: Text('Tamam'),
+            child: Text(tx('Tamam', 'OK', 'OK')),
           ),
         ],
       ),
@@ -97,10 +115,58 @@ class _SohbetScreenState extends State<SohbetScreen> {
     });
   }
 
+  // Mesaj zamanı (sunucu zamanı henüz gelmediyse şimdi kabul edilir)
+  DateTime _zaman(Map<String, dynamic> d) {
+    final z = d['zaman'];
+    if (z is Timestamp) return z.toDate();
+    return DateTime.now();
+  }
+
+  bool _ayniGun(DateTime a, DateTime b) =>
+      a.year == b.year && a.month == b.month && a.day == b.day;
+
+  String _gunBasligi(DateTime t) {
+    final simdi = DateTime.now();
+    if (_ayniGun(t, simdi)) return tx('Bugün', 'Vandaag', 'Today');
+    if (_ayniGun(t, simdi.subtract(Duration(days: 1)))) {
+      return tx('Dün', 'Gisteren', 'Yesterday');
+    }
+    return DateFormat('d MMMM y', Dil.locale).format(t);
+  }
+
+  Widget _gunEtiketi(String metin) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 10),
+      child: Center(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+          decoration: BoxDecoration(
+            color: Colors.black.withOpacity(0.08),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Text(
+            metin,
+            style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('SOHBET ODASI')),
+      appBar: AppBar(
+        title: Text(tx('SOHBET ODASI', 'STUDENTENCHAT', 'STUDENT CHAT')),
+        actions: [
+          IconButton(
+            tooltip: tx('Takma adı değiştir', 'Bijnaam wijzigen',
+                'Change nickname'),
+            icon: Icon(Icons.edit_outlined),
+            onPressed: () => _isimSor(degistir: true),
+          ),
+        ],
+      ),
       body: Column(
         children: [
           Expanded(
@@ -116,7 +182,10 @@ class _SohbetScreenState extends State<SohbetScreen> {
                 }
                 final docs = snapshot.data!.docs;
                 if (docs.isEmpty) {
-                  return Center(child: Text('İlk mesajı sen yaz! 👋'));
+                  return Center(
+                      child: Text(tx('İlk mesajı sen yaz! 👋',
+                          'Schrijf het eerste bericht! 👋',
+                          'Write the first message! 👋')));
                 }
                 return ListView.builder(
                   reverse: true,
@@ -125,23 +194,38 @@ class _SohbetScreenState extends State<SohbetScreen> {
                   itemBuilder: (context, i) {
                     final d = docs[i].data() as Map<String, dynamic>;
                     final benim = d['isim'] == _isim;
-                    return Align(
-                      alignment:
-                      benim ? Alignment.centerRight : Alignment.centerLeft,
-                      child: GestureDetector(
-                        onLongPress: benim ? null : () => _sikayetEt(docs[i].id, d),
+                    final zaman = _zaman(d);
 
+                    // Liste ters (en yeni altta). Bir sonraki eleman daha eski mesajdır;
+                    // gün değiştiyse bu mesajın üstüne gün etiketi koy.
+                    bool gunBasligiGoster = true;
+                    if (i + 1 < docs.length) {
+                      final onceki =
+                          _zaman(docs[i + 1].data() as Map<String, dynamic>);
+                      gunBasligiGoster = !_ayniGun(onceki, zaman);
+                    }
+
+                    final saat = DateFormat('HH:mm').format(zaman);
+
+                    final balon = Align(
+                      alignment:
+                          benim ? Alignment.centerRight : Alignment.centerLeft,
+                      child: GestureDetector(
+                        onLongPress:
+                            benim ? null : () => _sikayetEt(docs[i].id, d),
                         child: Container(
                           margin: EdgeInsets.symmetric(vertical: 4),
-                          padding: EdgeInsets.all(10),
+                          padding: EdgeInsets.fromLTRB(10, 8, 10, 6),
                           constraints: BoxConstraints(
-                              maxWidth: MediaQuery.of(context).size.width * 0.75),
+                              maxWidth:
+                                  MediaQuery.of(context).size.width * 0.75),
                           decoration: BoxDecoration(
                             color: benim ? AppColors.primary : AppColors.white,
                             borderRadius: BorderRadius.circular(14),
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
                             children: [
                               if (!benim)
                                 Text(d['isim'] ?? '',
@@ -154,10 +238,31 @@ class _SohbetScreenState extends State<SohbetScreen> {
                                       color: benim
                                           ? Colors.white
                                           : AppColors.textPrimary)),
+                              SizedBox(height: 3),
+                              Align(
+                                alignment: Alignment.bottomRight,
+                                child: Text(
+                                  saat,
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    color: benim
+                                        ? Colors.white70
+                                        : AppColors.textSecondary,
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
                       ),
+                    );
+
+                    if (!gunBasligiGoster) return balon;
+                    return Column(
+                      children: [
+                        _gunEtiketi(_gunBasligi(zaman)),
+                        balon,
+                      ],
                     );
                   },
                 );
@@ -173,9 +278,11 @@ class _SohbetScreenState extends State<SohbetScreen> {
                     child: TextField(
                       controller: _controller,
                       maxLength: 200,
+                      onSubmitted: (_) => _gonder(),
                       decoration: InputDecoration(
                         counterText: '',
-                        hintText: 'Mesaj yaz...',
+                        hintText: tx('Mesaj yaz...', 'Schrijf een bericht...',
+                            'Write a message...'),
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(

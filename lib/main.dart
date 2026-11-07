@@ -1,20 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:tarsus_genc/screens/notification_service.dart';
 import 'config/app_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'config/university_config.dart';
+import 'config/flavor.dart';
+import 'l10n/dil.dart';
+import 'services/consent_service.dart';
+import 'screens/karsilama_screen.dart';
 
 import 'screens/ana_sayfa.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // Tarih biçimleri (tr/nl/en) ve kayıtlı dil
+  await initializeDateFormatting();
+  await Dil.yukle();
+
   // Firebase başlat
   await Firebase.initializeApp();
 
-  // AdMob başlat
+  // AB'de reklam onayı (sadece Amsterdam), sonra AdMob başlat
+  if (kAmsterdam) {
+    await ConsentService.hazirla();
+  }
   await MobileAds.instance.initialize();
   await NotificationService.initialize();  // YENİ!
 
@@ -25,7 +37,11 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    // Dil değişince (Dil.surum artınca) uygulama baştan çizilir
+    return ValueListenableBuilder<int>(
+      valueListenable: Dil.surum,
+      builder: (context, _, __) => MaterialApp(
+      key: ValueKey(Dil.surum.value),
       title: UniversityConfig.fullName,
 
       debugShowCheckedModeBanner: false,
@@ -57,7 +73,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: AnaSayfa(),
-    );
+      home: (kAmsterdam && !Dil.secildiMi) ? KarsilamaScreen() : AnaSayfa(),
+    ));
   }
 }

@@ -46,6 +46,14 @@ android {
             resValue("string", "app_name", "Tarsus Üniversitesi Genç Mobil")
             manifestPlaceholders["admobAppId"] = "ca-app-pub-5799565273289643~6905287212"
         }
+        create("amsterdam") {
+            dimension = "uni"
+            applicationId = "com.hasan.amsterdam_genc"
+            versionCode = 1
+            resValue("string", "app_name", "UvA Student App")
+            // Test uygulama kimliği: AdMob'da gerçek uygulama açınca değiştir
+            manifestPlaceholders["admobAppId"] = "ca-app-pub-3940256099942544~3347511713"
+        }
         create("mersin") {
             dimension = "uni"
             applicationId = "com.hasan.mersingenc"

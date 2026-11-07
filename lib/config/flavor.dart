@@ -5,7 +5,8 @@ const String kFlavor =
     String.fromEnvironment('FLUTTER_APP_FLAVOR', defaultValue: 'tarsus');
 
 const bool kMersin = kFlavor == 'mersin';
-const bool kTarsus = !kMersin;
+const bool kAmsterdam = kFlavor == 'amsterdam';
+const bool kTarsus = !kMersin && !kAmsterdam;
 
 // Sadece geliştirici derlemesinde yönetici ekranı açılır:
 // flutter build apk --flavor tarsus --dart-define=ADMIN=true

@@ -6,6 +6,9 @@ class AdService {
   static String get bannerAdUnitId {
     if (Platform.isAndroid) {
       // TEST ID - Gerçek yayında değiştir!
+      if (kAmsterdam) {
+        return 'ca-app-pub-3940256099942544/6300978111'; // TEST (Amsterdam) - gerçek ID ile değiştir
+      }
       return kMersin
           ? 'ca-app-pub-5799565273289643/6386757943' // Mersin banner
           : 'ca-app-pub-5799565273289643/2765238361'; // Tarsus banner
@@ -18,6 +21,9 @@ class AdService {
   static String get interstitialAdUnitId {
     if (Platform.isAndroid) {
       // TEST ID - Gerçek yayında değiştir!
+      if (kAmsterdam) {
+        return 'ca-app-pub-3940256099942544/1033173712'; // TEST (Amsterdam) - gerçek ID ile değiştir
+      }
       return kMersin
           ? 'ca-app-pub-5799565273289643/5073676271' // Mersin geçiş
           : 'ca-app-pub-5799565273289643/1452156699'; // Tarsus geçiş

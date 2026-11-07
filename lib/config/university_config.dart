@@ -3,19 +3,25 @@ import 'app_colors.dart';
 import 'flavor.dart';
 
 class UniversityConfig {
-  static const String name =
-      kMersin ? "Mersin Üniversitesi" : "Tarsus Üniversitesi";
-  static const String appName = "Genç Mobil";
-  static const String fullName =
-      kMersin ? "Mersin Üniversitesi Genç Mobil" : "Tarsus Üniversitesi Genç Mobil";
+  static const String name = kAmsterdam
+      ? "Universiteit van Amsterdam"
+      : (kMersin ? "Mersin Üniversitesi" : "Tarsus Üniversitesi");
+  static const String appName = kAmsterdam ? "Student App" : "Genç Mobil";
+  static const String fullName = kAmsterdam
+      ? "UvA Student App"
+      : (kMersin
+          ? "Mersin Üniversitesi Genç Mobil"
+          : "Tarsus Üniversitesi Genç Mobil");
 
-  // Öğrenci otomasyonu (OBS) adresi
-  static const String obsUrl =
-      kMersin ? 'https://obs.mersin.edu.tr' : 'https://obs.tarsus.edu.tr';
+  // Öğrenci otomasyonu / portal adresi (Amsterdam: Canvas giriş sayfası)
+  static const String obsUrl = kAmsterdam
+      ? 'https://login.canvas.uva.nl/'
+      : (kMersin ? 'https://obs.mersin.edu.tr' : 'https://obs.tarsus.edu.tr');
 
   // Ana sayfadaki logo
-  static const String logoAsset =
-      kMersin ? 'assets/images/mersin_logo.jpeg' : 'assets/images/1024.png';
+  static const String logoAsset = kAmsterdam
+      ? 'assets/images/amsterdam_logo.png'
+      : (kMersin ? 'assets/images/mersin_logo.jpeg' : 'assets/images/1024.png');
 
   static const Color primaryColor = AppColors.primary;
   static const Color accentColor = AppColors.accent;
