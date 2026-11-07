@@ -1,11 +1,14 @@
 import 'dart:io';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import '../config/flavor.dart';
 
 class AdService {
   static String get bannerAdUnitId {
     if (Platform.isAndroid) {
       // TEST ID - Gerçek yayında değiştir!
-      return 'ca-app-pub-5799565273289643/2765238361';
+      return kMersin
+          ? 'ca-app-pub-5799565273289643/6386757943' // Mersin banner
+          : 'ca-app-pub-5799565273289643/2765238361'; // Tarsus banner
     } else if (Platform.isIOS) {
       return 'ca-app-pub-3940256099942544/2934735716';
     }
@@ -15,7 +18,9 @@ class AdService {
   static String get interstitialAdUnitId {
     if (Platform.isAndroid) {
       // TEST ID - Gerçek yayında değiştir!
-      return 'ca-app-pub-5799565273289643/1452156699';
+      return kMersin
+          ? 'ca-app-pub-5799565273289643/5073676271' // Mersin geçiş
+          : 'ca-app-pub-5799565273289643/1452156699'; // Tarsus geçiş
     } else if (Platform.isIOS) {
       return 'ca-app-pub-3940256099942544/4411468910';
     }

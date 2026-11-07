@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../config/university_config.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../config/app_colors.dart';
 
@@ -32,7 +33,7 @@ class HakkindaScreen extends StatelessWidget {
 
             // UYGULAMA ADI
             Text(
-              'Tarsus Üniversitesi\nGenç Mobil',
+              '${UniversityConfig.name}\nGenç Mobil',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 24,
@@ -61,7 +62,7 @@ class HakkindaScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
-                'Tarsus Üniversitesi öğrencileri için geliştirilmiş mobil uygulamadır. '
+                '${UniversityConfig.name} öğrencileri için geliştirilmiş mobil uygulamadır. '
                     'Günlük yemek listesi, anlaşmalı mekanlar, ders notları ve daha fazlasını içerir.',
                 textAlign: TextAlign.center,
                 style: TextStyle(

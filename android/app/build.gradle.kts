@@ -30,14 +30,29 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.hasan.tarsus_genc"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
-        versionCode = 7
         versionName = flutter.versionName
+    }
+    // Her üniversite bir "flavor". Derleme: flutter build appbundle --flavor tarsus
+    flavorDimensions.add("uni")
+    productFlavors {
+        create("tarsus") {
+            dimension = "uni"
+            applicationId = "com.hasan.tarsus_genc"
+            versionCode = 7 // her yayında artır
+            resValue("string", "app_name", "Tarsus Üniversitesi Genç Mobil")
+            manifestPlaceholders["admobAppId"] = "ca-app-pub-5799565273289643~6905287212"
+        }
+        create("mersin") {
+            dimension = "uni"
+            applicationId = "com.hasan.mersingenc"
+            versionCode = 1 // Play'deki son sürüm kodunun üstüne çıkar
+            resValue("string", "app_name", "Mersin Üniversitesi Genç Mobil")
+            manifestPlaceholders["admobAppId"] = "ca-app-pub-5799565273289643~5736021251"
+        }
     }
     signingConfigs {
         if (keystorePropertiesFile.exists()) create("release") {

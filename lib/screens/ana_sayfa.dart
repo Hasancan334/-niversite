@@ -14,11 +14,11 @@ import 'ders_notlari_screen.dart';
 import 'kulupler_screen.dart';
 import 'sohbet_screen.dart';
 import 'admin_screen.dart';
+import '../config/flavor.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'hakkinda_screen.dart';
-const bool kAdminSurumu = bool.fromEnvironment('ADMIN');
 class AnaSayfa extends StatefulWidget {
   @override
   _AnaSayfaState createState() => _AnaSayfaState();
@@ -103,7 +103,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.asset(
-                'assets/images/1024.png',
+                UniversityConfig.logoAsset,
                 height: 50,
                 width: 50,
               ),
@@ -155,7 +155,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                   icon: '🎓',
                   title: 'Öğrenci\nOtomasyonu',
                   onTap: () async {
-                    final url = Uri.parse('https://obs.tarsus.edu.tr');  // TODO: Tarsus OBS adresini doğrula
+                    final url = Uri.parse(UniversityConfig.obsUrl);
                     await launchUrl(url, mode: LaunchMode.externalApplication);
                   },
                 ),
