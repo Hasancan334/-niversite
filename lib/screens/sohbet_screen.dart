@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -131,7 +132,77 @@ class _SohbetScreenState extends State<SohbetScreen> {
     if (_ayniGun(t, simdi.subtract(Duration(days: 1)))) {
       return tx('Dün', 'Gisteren', 'Yesterday');
     }
+    final bugun = DateTime(simdi.year, simdi.month, simdi.day);
+    final gun = DateTime(t.year, t.month, t.day);
+    if (bugun.difference(gun).inDays < 7) {
+      return DateFormat('EEEE', Dil.locale).format(t);
+    }
+    if (t.year == simdi.year) {
+      return DateFormat('d MMMM, EEEE', Dil.locale).format(t);
+    }
     return DateFormat('d MMMM y', Dil.locale).format(t);
+  }
+
+  String _tamZaman(DateTime t) =>
+      DateFormat('d MMMM y, EEEE · HH:mm', Dil.locale).format(t);
+
+  // Her takma ada sabit bir renk
+  static const _isimRenkleri = [
+    Color(0xFF1E88E5), Color(0xFF43A047), Color(0xFF8E24AA), Color(0xFFF4511E),
+    Color(0xFF00897B), Color(0xFF6D4C41), Color(0xFF3949AB), Color(0xFFD81B60),
+  ];
+
+  Color _isimRengi(String isim) {
+    var h = 0;
+    for (final c in isim.codeUnits) {
+      h = (h * 31 + c) & 0x7fffffff;
+    }
+    return _isimRenkleri[h % _isimRenkleri.length];
+  }
+
+  // Mesaja dokununca: tam tarih/saat, kopyala, şikayet et
+  void _mesajDetay(String mesajId, Map<String, dynamic> d, DateTime zaman,
+      bool benim, bool gonderiliyor) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
+      builder: (ctx) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: Icon(Icons.schedule),
+              title: Text(d['isim'] ?? ''),
+              subtitle: Text(gonderiliyor
+                  ? tx('Gönderiliyor...', 'Wordt verzonden...', 'Sending...')
+                  : _tamZaman(zaman)),
+            ),
+            Divider(height: 1),
+            ListTile(
+              leading: Icon(Icons.copy),
+              title: Text(tx('Mesajı kopyala', 'Bericht kopiëren',
+                  'Copy message')),
+              onTap: () {
+                Clipboard.setData(ClipboardData(text: d['mesaj'] ?? ''));
+                Navigator.pop(ctx);
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(tx('Kopyalandı', 'Gekopieerd', 'Copied'))));
+              },
+            ),
+            if (!benim)
+              ListTile(
+                leading: Icon(Icons.flag_outlined, color: AppColors.error),
+                title: Text(tx('Şikayet et', 'Melden', 'Report')),
+                onTap: () {
+                  Navigator.pop(ctx);
+                  _sikayetEt(mesajId, d);
+                },
+              ),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _gunEtiketi(String metin) {
@@ -199,11 +270,13 @@ class _SohbetScreenState extends State<SohbetScreen> {
                     // Liste ters (en yeni altta). Bir sonraki eleman daha eski mesajdır;
                     // gün değiştiyse bu mesajın üstüne gün etiketi koy.
                     bool gunBasligiGoster = true;
+                    bool ayniKisi = false;
                     if (i + 1 < docs.length) {
-                      final onceki =
-                          _zaman(docs[i + 1].data() as Map<String, dynamic>);
-                      gunBasligiGoster = !_ayniGun(onceki, zaman);
+                      final od = docs[i + 1].data() as Map<String, dynamic>;
+                      gunBasligiGoster = !_ayniGun(_zaman(od), zaman);
+                      ayniKisi = !gunBasligiGoster && od['isim'] == d['isim'];
                     }
+                    final gonderiliyor = docs[i].metadata.hasPendingWrites;
 
                     final saat = DateFormat('HH:mm').format(zaman);
 
@@ -211,10 +284,13 @@ class _SohbetScreenState extends State<SohbetScreen> {
                       alignment:
                           benim ? Alignment.centerRight : Alignment.centerLeft,
                       child: GestureDetector(
+                        onTap: () => _mesajDetay(
+                            docs[i].id, d, zaman, benim, gonderiliyor),
                         onLongPress:
                             benim ? null : () => _sikayetEt(docs[i].id, d),
                         child: Container(
-                          margin: EdgeInsets.symmetric(vertical: 4),
+                          margin: EdgeInsets.only(
+                              top: ayniKisi ? 1 : 6, bottom: 1),
                           padding: EdgeInsets.fromLTRB(10, 8, 10, 6),
                           constraints: BoxConstraints(
                               maxWidth:
@@ -227,12 +303,12 @@ class _SohbetScreenState extends State<SohbetScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              if (!benim)
+                              if (!benim && !ayniKisi)
                                 Text(d['isim'] ?? '',
                                     style: TextStyle(
                                         fontSize: 11,
                                         fontWeight: FontWeight.bold,
-                                        color: AppColors.primaryDark)),
+                                        color: _isimRengi(d['isim'] ?? ''))),
                               Text(d['mesaj'] ?? '',
                                   style: TextStyle(
                                       color: benim
@@ -241,14 +317,29 @@ class _SohbetScreenState extends State<SohbetScreen> {
                               SizedBox(height: 3),
                               Align(
                                 alignment: Alignment.bottomRight,
-                                child: Text(
-                                  saat,
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                    color: benim
-                                        ? Colors.white70
-                                        : AppColors.textSecondary,
-                                  ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      saat,
+                                      style: TextStyle(
+                                        fontSize: 10,
+                                        color: benim
+                                            ? Colors.white70
+                                            : AppColors.textSecondary,
+                                      ),
+                                    ),
+                                    if (benim) ...[
+                                      SizedBox(width: 3),
+                                      Icon(
+                                        gonderiliyor
+                                            ? Icons.schedule
+                                            : Icons.done,
+                                        size: 12,
+                                        color: Colors.white70,
+                                      ),
+                                    ],
+                                  ],
                                 ),
                               ),
                             ],
