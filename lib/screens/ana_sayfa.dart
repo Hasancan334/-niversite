@@ -176,6 +176,8 @@ class _AnaSayfaState extends State<AnaSayfa> {
                     title: tx('Harçlık\nKapısı', 'Bijbanen\n& klusjes', 'Student\njobs'),
                     onTap: () => _navigateWithAd(context, IsIlanlariScreen()),
                   ),
+                  // UvA'da günlük yemekhane menüsü yok; sadece Türk flavor'larında
+                  if (!kAmsterdam)
                   _buildMenuButton(
                     context,
                     icon: '🍽️',
