@@ -13,7 +13,9 @@ Android Studio: Run > Edit Configurations > "Build flavor" alanına tarsus veya 
 ## Gizli dosyalar (GitHub'da YOK, her flavor için elle konur)
 - android/app/src/tarsus/google-services.json
 - android/app/src/mersin/google-services.json
-- android/key.properties ve *.jks (keystore)
+- android/key-tarsus.properties, android/key-mersin.properties, android/key-amsterdam.properties (+ ilgili .jks dosyaları)
+  Biçim: storePassword, keyPassword, keyAlias, storeFile (yolda / kullan)
+  Tarsus/Mersin için dosya yoksa eski android/key.properties kullanılır; Amsterdam için kullanılmaz.
 
 ## Yeni üniversite eklemek
 1. android/app/build.gradle.kts -> productFlavors içine yeni create("ad") bloğu
