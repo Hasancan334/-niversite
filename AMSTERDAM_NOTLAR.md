@@ -10,8 +10,7 @@ Flavor: `amsterdam`  |  Paket: com.hasan.amsterdam_genc (değiştirmek için bui
 ## Elle yapılacaklar
 1. Firebase: yeni proje -> android/app/src/amsterdam/google-services.json (paket com.hasan.amsterdam_genc)
    Authentication (yönetici e-postası) + Firestore kuralları (Tarsus'takiyle aynı)
-2. AdMob: yeni uygulama; şu an Google TEST ID'leri var:
-   lib/services/ad_service.dart (kAmsterdam bölümleri) ve build.gradle.kts (amsterdam -> admobAppId)
+2. AdMob: gerçek kimlikler girildi (ad_service.dart kAmsterdam bölümü, build.gradle.kts admobAppId)
 3. AB onayı (GDPR/UMP): AdMob > Gizlilik ve mesajlaşma > "Avrupa düzenlemeleri" mesajı oluştur ve yayınla
 4. Android keystore: key-amsterdam özelinde ayrı üret ve yedekle
 5. Logo: assets/images/amsterdam_logo.png geçici, kendi tasarımımız. UvA logosunu izinsiz kullanma.

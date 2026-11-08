@@ -7,7 +7,7 @@ class AdService {
     if (Platform.isAndroid) {
       // TEST ID - Gerçek yayında değiştir!
       if (kAmsterdam) {
-        return 'ca-app-pub-3940256099942544/6300978111'; // TEST (Amsterdam) - gerçek ID ile değiştir
+        return 'ca-app-pub-5799565273289643/1295368316'; // Amsterdam banner
       }
       return kMersin
           ? 'ca-app-pub-5799565273289643/6386757943' // Mersin banner
@@ -22,7 +22,7 @@ class AdService {
     if (Platform.isAndroid) {
       // TEST ID - Gerçek yayında değiştir!
       if (kAmsterdam) {
-        return 'ca-app-pub-3940256099942544/1033173712'; // TEST (Amsterdam) - gerçek ID ile değiştir
+        return 'ca-app-pub-5799565273289643/7286061591'; // Amsterdam geçiş
       }
       return kMersin
           ? 'ca-app-pub-5799565273289643/5073676271' // Mersin geçiş
