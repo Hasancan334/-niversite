@@ -20,14 +20,6 @@ class UvaCategorie {
 
 class UvaData {
   static const List<UvaCategorie> verenigingen = [
-    UvaCategorie("Sociaal & borrels", "Social & meetups", Icons.celebration, [
-      UvaLink("Amsterdam United", "Thuisbasis voor UvA-studenten, met evenementen over diversiteit en steun voor eerstegeneratie- en migratieachtergrondstudenten.", "A home for UvA students: diversity events and support for first-generation and migration-background students.", "https://linktr.ee/amsterdam_united"),
-      UvaLink("Cyclades", "Gemengde vereniging met wekelijkse sociale avonden en jaarlijkse evenementen.", "Mixed-discipline association with weekly social evenings and yearly events.", "https://www.sv-cyclades.nl/home"),
-      UvaLink("Liber", "Kleine vereniging zonder ontgroening, verplichte avonden of hiërarchie.", "Small association without hazing, mandatory social nights or hierarchies.", "https://www.sv-liber.nl/"),
-      UvaLink("NoNoMes", "Grote vereniging met eigen huis en veel commissies.", "Large association with its own house and many committees.", "https://www.nonomes.nl/home"),
-      UvaLink("SSRA", "Gemengde vereniging, opgericht in 1889, met veel commissies.", "Mixed association founded in 1889 with many committees.", "https://www.ssra.nl/"),
-      UvaLink("Unitas", "Maatschappelijke betrokkenheid, hulp aan Amsterdammers en studentenmentoring.", "Social engagement, helping people in Amsterdam and student mentoring.", "https://www.unitas-amsterdam.nl/home"),
-    ]),
     UvaCategorie("Debat, ondernemen & studie", "Debate, business & academic", Icons.lightbulb_outline, [
       UvaLink("Bonaparte", "Amsterdamse studentendebatvereniging.", "Amsterdam student debating association.", "https://www.asdvbonaparte.nl/"),
       UvaLink("ASIF Ventures", "Venture capital-fonds dat investeert in startups van studenten.", "Venture capital fund investing in student-founded startups.", "https://www.asif.ventures/"),
@@ -39,7 +31,6 @@ class UvaData {
     UvaCategorie("Cultuur & afkomst", "Ethnic & cultural", Icons.public, [
       UvaLink("ABBA", "Voor mensen met roots rond de Adriatische, Baltische, Zwarte en Azovzee.", "For people with roots around the Adriatic, Baltic, Black and Azov Seas.", "https://www.facebook.com/abbastudentassociation/"),
       UvaLink("ASAA", "Arabische cultuur en gemeenschap, open voor iedereen.", "Arab culture and community, open to all.", "https://www.asaamsterdam.nl/"),
-      UvaLink("Asian Borrel Club (ABC)", "Socializen en netwerken voor wie geïnteresseerd is in Aziatische cultuur.", "Socialising and networking for people interested in Asian culture.", "https://www.asianborrelclub.nl/"),
       UvaLink("AtlasBridges", "Internationale non-profit met centra in Amsterdam en Marokko.", "International non-profit with centres in Amsterdam and Morocco.", "https://www.atlasbridges.nl/"),
       UvaLink("ASN", "Gemeenschap voor Aziatische studenten en wie geïnteresseerd is in Azië.", "Community for Asian students and those interested in Asia.", "https://asn-online.nl/"),
       UvaLink("BASA", "Veilige plek voor zwarte en Afrikaanse studenten.", "Safe space for Black and African students.", "https://www.instagram.com/basa_uva/"),
@@ -52,7 +43,6 @@ class UvaData {
       UvaLink("HeforShe X UvA", "Onderdeel van de VN-beweging voor gendergelijkheid.", "Part of the UN gender equality movement.", "https://www.instagram.com/hfs.uva/"),
     ]),
     UvaCategorie("Internationaal", "International", Icons.flight_takeoff, [
-      UvaLink("AEGEE-Amsterdam", "Lokale afdeling van een Europees studentennetwerk, met wekelijkse borrels.", "Local branch of a European student network with weekly socials.", "https://aegee-amsterdam.nl/"),
       UvaLink("AIESEC", "Studentenorganisatie voor stages en vrijwilligerswerk in het buitenland.", "Student-run organisation for internships and volunteering abroad.", "https://aiesec.nl/"),
       UvaLink("ESN Amsterdam", "Helpt internationale studenten het meeste uit hun verblijf te halen.", "Helps international students get the most from their stay.", "https://esn-amsterdam.nl/"),
       UvaLink("HOST", "Christelijke groep voor internationale studenten en onderzoekers.", "Christian-organised group for international students and researchers.", "https://wearehost.nl/amsterdam/"),
