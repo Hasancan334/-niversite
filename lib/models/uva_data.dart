@@ -20,6 +20,13 @@ class UvaCategorie {
 
 class UvaData {
   static const List<UvaCategorie> verenigingen = [
+    UvaCategorie("WhatsApp-groepen", "WhatsApp groups", Icons.chat, [
+      UvaLink("ESN Amsterdam (WhatsApp)", "Groep voor Erasmus- en internationale studenten, najaar 2026.", "Group for Erasmus and international students, fall 2026.", "https://chat.whatsapp.com/KDsBq6apbUd2uhwo9MxN54"),
+      UvaLink("Boosted Gryffins", "Gaming- en e-sportscommunity voor studenten van UvA, VU en HvA.", "Gaming and esports community for UvA, VU and HvA students.", "https://chat.whatsapp.com/GvhKPpadjhLErqn27jhGw1"),
+      UvaLink("ASVA – UvA Sociale Wetenschappen", "ASVA-facultaire groep over studentenrechten en problemen op de faculteit.", "ASVA faculty group on student rights and faculty issues.", "https://chat.whatsapp.com/FDTQoDiRd8Q7iApbMKmPdh"),
+      UvaLink("ASVA – UvA Geesteswetenschappen", "ASVA-facultaire groep over studentenrechten en problemen op de faculteit.", "ASVA faculty group on student rights and faculty issues.", "https://chat.whatsapp.com/ChvM53GUBugAz2VsvOhAsE"),
+      UvaLink("ASVA – UvA Bètawetenschappen", "ASVA-facultaire groep over studentenrechten en problemen op de faculteit.", "ASVA faculty group on student rights and faculty issues.", "https://chat.whatsapp.com/EeuyGruQEts3tpfJhrXvCs"),
+    ]),
     UvaCategorie("Debat, ondernemen & studie", "Debate, business & academic", Icons.lightbulb_outline, [
       UvaLink("Bonaparte", "Amsterdamse studentendebatvereniging.", "Amsterdam student debating association.", "https://www.asdvbonaparte.nl/"),
       UvaLink("ASIF Ventures", "Venture capital-fonds dat investeert in startups van studenten.", "Venture capital fund investing in student-founded startups.", "https://www.asif.ventures/"),
