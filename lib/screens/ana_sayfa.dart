@@ -207,7 +207,10 @@ class _AnaSayfaState extends State<AnaSayfa> {
                     icon: '📢',
                     title: tx('Duyurular\n& Etkinlikler', 'Nieuws &\nEvenementen', 'News &\nEvents'),
                     onTap: () => _navigateWithAd(context, DuyurularScreen()),
-                  ),_buildMenuButton(
+                  ),
+                  // Amsterdam'da anlaşmalı mekan yok; sadece Türk flavor'larında
+                  if (!kAmsterdam)
+                  _buildMenuButton(
                     context,
                     icon: '🍔',
                     title: tx('Anlaşmalı\nMekanlar', 'Partner-\nplekken', 'Partner\nplaces'),
