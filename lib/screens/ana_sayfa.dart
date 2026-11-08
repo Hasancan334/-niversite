@@ -21,6 +21,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'hakkinda_screen.dart';
+import 'uva_ekstra_screens.dart';
 class AnaSayfa extends StatefulWidget {
   @override
   _AnaSayfaState createState() => _AnaSayfaState();
@@ -217,6 +218,26 @@ class _AnaSayfaState extends State<AnaSayfa> {
                     onTap: () => _navigateWithAd(context, MekanlarScreen()),
                   ),
 
+                  if (kAmsterdam) ...[
+                    _buildMenuButton(
+                      context,
+                      icon: '📅',
+                      title: tx('Akademik\nTakvim', 'Academische\nkalender', 'Academic\ncalendar'),
+                      onTap: () => _navigateWithAd(context, AkademikTakvimScreen()),
+                    ),
+                    _buildMenuButton(
+                      context,
+                      icon: '🗺️',
+                      title: tx('Kampüsler', 'Campussen\n& gebouwen', 'Campuses\n& buildings'),
+                      onTap: () => _navigateWithAd(context, KampusScreen()),
+                    ),
+                    _buildMenuButton(
+                      context,
+                      icon: '🔗',
+                      title: tx('Önemli\nLinkler', 'Handige\nlinks', 'Useful\nlinks'),
+                      onTap: () => _navigateWithAd(context, OnemliLinklerScreen()),
+                    ),
+                  ],
                   _buildMenuButton(
                     context,
                     icon: 'ℹ️',

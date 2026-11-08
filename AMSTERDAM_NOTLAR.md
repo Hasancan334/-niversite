@@ -19,6 +19,7 @@ Flavor: `amsterdam`  |  Paket: com.hasan.amsterdam_genc (değiştirmek için bui
 
 ## İçerik
 - Kulüpler ve kaynaklar lib/models/uva_data.dart (kaynak: student.uva.nl). Linkler zamanla değişebilir, kontrol et.
+- Akademik takvim, kampüsler ve önemli linkler lib/models/uva_extra_data.dart. Takvimi HER YIL güncelle (student.uva.nl/en/academic-calendar).
 - Yemek, duyuru, mekan, iş ilanı verisi yönetici ekranından (Firestore) girilir; metinleri Hollandaca yaz.
 - Yemek tarihi: "2 november maandag" ya da "02.11.2026" biçimi desteklenir.
 
