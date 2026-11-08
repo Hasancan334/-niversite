@@ -48,12 +48,8 @@ class UvaData {
       UvaLink("Hvanti", "Netwerk voor Caribisch-Nederlandse studenten.", "Network for Dutch-Caribbean students.", "https://www.amsterdamuas.com/study/information-for/caribbean-students"),
       UvaLink("MENA Student Association", "Inclusief beeld van de cultuur van het Midden-Oosten en Noord-Afrika.", "Promotes an inclusive view of Middle Eastern and North African culture.", "https://www.menasa.nl/"),
     ]),
-    UvaCategorie("Genderdiversiteit & LHBTQ+", "Gender & sexuality", Icons.diversity_3, [
-      UvaLink("A.S.V. Gay", "Voor homo, lesbische, biseksuele, transgender en queer studenten.", "For gay, lesbian, bisexual, transgender and queer students.", "https://asvgay.nl/"),
+    UvaCategorie("Gendergelijkheid", "Gender equality", Icons.diversity_3, [
       UvaLink("HeforShe X UvA", "Onderdeel van de VN-beweging voor gendergelijkheid.", "Part of the UN gender equality movement.", "https://www.instagram.com/hfs.uva/"),
-      UvaLink("UvA Pride", "Sociaal netwerk en kennisdeling voor LHBTQ+ medewerkers en studenten.", "Social network and knowledge-sharing for LGBT+ staff and students.", "http://www.uvapride.nl/?lang=en"),
-      UvaLink("Spotlight", "Platform voor LHBTQ+ medewerkers en studenten van de UvA.", "Platform for LGBT+ staff and students at the UvA.", "https://www.instagram.com/spotlight.uva/"),
-      UvaLink("Jongeheerenborrel (JHB)", "Maandelijkse sociale borrel.", "Social monthly event.", "https://www.jongeheerenborrel.nl/"),
     ]),
     UvaCategorie("Internationaal", "International", Icons.flight_takeoff, [
       UvaLink("AEGEE-Amsterdam", "Lokale afdeling van een Europees studentennetwerk, met wekelijkse borrels.", "Local branch of a European student network with weekly socials.", "https://aegee-amsterdam.nl/"),
