@@ -8,6 +8,7 @@ import '../config/app_colors.dart';
 import '../services/firebase_service.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../services/ad_service.dart';
+import '../services/consent_service.dart';
 
 class DuyurularScreen extends StatefulWidget {
   @override
@@ -25,13 +26,15 @@ class _DuyurularScreenState extends State<DuyurularScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
-    _loadBannerAd(); // YENİ!
+    ConsentService.hazirOlunca(() {
+      if (mounted) _loadBannerAd();
+    });
   }
 
   void _loadBannerAd() {
     _bannerAd = AdService.createBannerAd()
       ..load().then((_) {
-        setState(() {
+        if (mounted) setState(() {
           _isBannerAdLoaded = true;
         });
       });

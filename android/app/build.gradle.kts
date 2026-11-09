@@ -81,7 +81,7 @@ android {
             signingConfig = signingConfigs.findByName("amsterdamRelease")
             applicationId = "com.hasan.amsterdam_genc"
             versionCode = 1
-            resValue("string", "app_name", "UvA Student App")
+            resValue("string", "app_name", "Studentengids Amsterdam – UvA")
             manifestPlaceholders["admobAppId"] = "ca-app-pub-5799565273289643~5234613327"
         }
         create("mersin") {

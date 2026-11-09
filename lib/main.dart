@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:tarsus_genc/screens/notification_service.dart';
 import 'config/app_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,15 +22,19 @@ void main() async {
   // Firebase başlat
   await Firebase.initializeApp();
 
-  // AB'de reklam onayı (sadece Amsterdam), sonra AdMob başlat
-  if (kAmsterdam) {
-    await ConsentService.hazirla();
+  // Tarsus/Mersin: AdMob eskisi gibi hemen başlar.
+  // Amsterdam: AdMob, UMP onayı alındıktan sonra (canRequestAds) başlar.
+  if (!kAmsterdam) {
+    await ConsentService.onaysizBaslat();
   }
-  await MobileAds.instance.initialize();
   await NotificationService.initialize();  // YENİ!
 
 
   runApp(MyApp());
+
+  if (kAmsterdam) {
+    ConsentService.amsterdamBaslat();
+  }
 }
 
 class MyApp extends StatelessWidget {

@@ -8,6 +8,7 @@ import '../config/app_colors.dart';
 import '../services/user_service.dart';
 import '../services/firebase_service.dart';
 import '../services/ad_service.dart';
+import '../services/consent_service.dart';
 import 'package:geolocator/geolocator.dart';
 import '../services/location_service.dart';
 import '../services/kullanim_service.dart';
@@ -27,13 +28,15 @@ class _MekanlarScreenState extends State<MekanlarScreen> {
   @override
   void initState() {
     super.initState();
-    _loadBannerAd();
+    ConsentService.hazirOlunca(() {
+      if (mounted) _loadBannerAd();
+    });
   }
 
   void _loadBannerAd() {
     _bannerAd = AdService.createBannerAd()
       ..load().then((_) {
-        setState(() {
+        if (mounted) setState(() {
           _isBannerAdLoaded = true;
         });
       });

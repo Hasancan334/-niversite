@@ -5,6 +5,7 @@ import '../config/app_colors.dart';
 
 import '../config/university_config.dart';
 import '../services/ad_service.dart';
+import '../services/consent_service.dart';
 import '../widgets/banner_ad_widget.dart';
 import '../widgets/haber_slider.dart';
 import 'yemek_listesi_screen.dart';
@@ -22,6 +23,7 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'hakkinda_screen.dart';
 import 'uva_ekstra_screens.dart';
+import 'ayarlar_screen.dart';
 class AnaSayfa extends StatefulWidget {
   @override
   _AnaSayfaState createState() => _AnaSayfaState();
@@ -37,7 +39,9 @@ class _AnaSayfaState extends State<AnaSayfa> {
   void initState() {
     super.initState();
 
-    _loadInterstitialAd();
+    ConsentService.hazirOlunca(() {
+      if (mounted) _loadInterstitialAd();
+    });
   }
 
   DateTime _sonReklam = DateTime.now(); // açılışta reklam çıkmasın
@@ -106,6 +110,13 @@ class _AnaSayfaState extends State<AnaSayfa> {
               tooltip: tx('Dil', 'Taal', 'Language'),
               icon: Icon(Icons.language, color: AppColors.primary),
               onPressed: () => dilSecimiGoster(context),
+            ),
+          if (kAmsterdam)
+            IconButton(
+              tooltip: tx('Ayarlar', 'Instellingen', 'Settings'),
+              icon: Icon(Icons.settings_outlined, color: AppColors.primary),
+              onPressed: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (_) => AyarlarScreen())),
             ),
         ],
         title: Row(

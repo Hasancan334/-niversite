@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../services/ad_service.dart';
+import '../services/consent_service.dart';
 
 class BannerAdWidget extends StatefulWidget {
   @override
@@ -14,6 +15,12 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
   @override
   void initState() {
     super.initState();
+    // Reklam sadece onay/başlatma tamamlanınca yüklenir
+    ConsentService.hazirOlunca(_yukle);
+  }
+
+  void _yukle() {
+    if (!mounted) return;
     _ad = BannerAd(
       adUnitId: AdService.bannerAdUnitId,
       size: AdSize.banner,
