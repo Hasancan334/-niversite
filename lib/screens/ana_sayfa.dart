@@ -131,11 +131,13 @@ class _AnaSayfaState extends State<AnaSayfa> {
               ),
             ),
             const SizedBox(width: 12),
-            Column(
+            Flexible(
+              child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   UniversityConfig.name,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.grey[600],
@@ -149,6 +151,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                       : null,
                   child: Text(
                     UniversityConfig.appName,
+                    overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
@@ -157,6 +160,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                   ),
                 ),
               ],
+            ),
             ),
           ],
         ),
@@ -182,6 +186,8 @@ class _AnaSayfaState extends State<AnaSayfa> {
                   },
                 ),
 
+                  // Amsterdam'da harçlık/iş ilanı bölümü yok
+                  if (!kAmsterdam)
                   _buildMenuButton(
                     context,
                     icon: '💸',

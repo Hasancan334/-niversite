@@ -6,9 +6,10 @@ class UniversityConfig {
   static const String name = kAmsterdam
       ? "Universiteit van Amsterdam"
       : (kMersin ? "Mersin Üniversitesi" : "Tarsus Üniversitesi");
-  static const String appName = kAmsterdam ? "Student App" : "Genç Mobil";
+  static const String appName =
+      kAmsterdam ? "Studentengids Amsterdam – UvA" : "Genç Mobil";
   static const String fullName = kAmsterdam
-      ? "UvA Student App"
+      ? "Studentengids Amsterdam – UvA"
       : (kMersin
           ? "Mersin Üniversitesi Genç Mobil"
           : "Tarsus Üniversitesi Genç Mobil");
