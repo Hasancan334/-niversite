@@ -1,6 +1,7 @@
 # Üniversite Genç Mobil - Flavor Rehberi
 
-Tek kod, her üniversite bir "flavor". Şu an: `tarsus`, `mersin`.
+Tek kod, her üniversite bir "flavor". Şu an: `tarsus`, `mersin`, `amsterdam`, `koeln`.
+Ayrıntılar: AMSTERDAM_NOTLAR.md, KOELN_NOTLAR.md
 
 ## Çalıştırma / derleme
 - Çalıştır:        flutter run --flavor tarsus

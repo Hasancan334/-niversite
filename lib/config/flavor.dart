@@ -6,7 +6,12 @@ const String kFlavor =
 
 const bool kMersin = kFlavor == 'mersin';
 const bool kAmsterdam = kFlavor == 'amsterdam';
-const bool kTarsus = !kMersin && !kAmsterdam;
+const bool kKoeln = kFlavor == 'koeln';
+const bool kTarsus = !kMersin && !kAmsterdam && !kKoeln;
+
+// Yurt dışı flavor'ları (Amsterdam, Köln): dil seçimi, AB reklam onayı,
+// Türkiye'ye özel bölümler (yemekhane, mekanlar, harçlık) gizli.
+const bool kYabanci = kAmsterdam || kKoeln;
 
 // Sadece geliştirici derlemesinde yönetici ekranı açılır:
 // flutter build apk --flavor tarsus --dart-define=ADMIN=true

@@ -3,6 +3,7 @@
 // https://student.uva.nl/en/academic-calendar/2026-2027
 import 'package:flutter/material.dart';
 import 'uva_data.dart';
+import '../config/flavor.dart';
 
 enum TakvimTur { periode, vrij, feestdag }
 
@@ -24,7 +25,7 @@ class Gebouw {
 
   String get mapsUrl =>
       'https://www.google.com/maps/search/?api=1&query=' +
-      Uri.encodeComponent('$naam, $adres, Amsterdam');
+      Uri.encodeComponent('$naam, $adres, ${kKoeln ? 'Köln' : 'Amsterdam'}');
 }
 
 class Campus {

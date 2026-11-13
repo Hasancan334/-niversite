@@ -51,14 +51,14 @@ class _DuyurularScreenState extends State<DuyurularScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(tx('DUYURULAR & ETKİNLİKLER', 'NIEUWS & EVENEMENTEN', 'NEWS & EVENTS')),
+        title: Text(tx('DUYURULAR & ETKİNLİKLER', 'NIEUWS & EVENEMENTEN', 'NEWS & EVENTS', 'NEWS & EVENTS')),
         bottom: TabBar(
           controller: _tabController,
           indicatorColor: AppColors.white,
           tabs: [
-            Tab(text: tx('Hepsi', 'Alles', 'All')),
-            Tab(text: tx('Duyurular', 'Nieuws', 'News')),
-            Tab(text: tx('Etkinlikler', 'Evenementen', 'Events')),
+            Tab(text: tx('Hepsi', 'Alles', 'All', 'Alle')),
+            Tab(text: tx('Duyurular', 'Nieuws', 'News', 'News')),
+            Tab(text: tx('Etkinlikler', 'Evenementen', 'Events', 'Events')),
           ],
         ),
       ),
@@ -97,7 +97,7 @@ class _DuyurularScreenState extends State<DuyurularScreen>
               children: [
                 Icon(Icons.error_outline, size: 64, color: AppColors.error),
                 SizedBox(height: 16),
-                Text(tx('Bir hata oluştu', 'Er is een fout opgetreden', 'An error occurred'), style: TextStyle(fontSize: 18)),
+                Text(tx('Bir hata oluştu', 'Er is een fout opgetreden', 'An error occurred', 'Ein Fehler ist aufgetreten'), style: TextStyle(fontSize: 18)),
               ],
             ),
           );
@@ -122,10 +122,10 @@ class _DuyurularScreenState extends State<DuyurularScreen>
                 SizedBox(height: 16),
                 Text(
                   tip == null
-                      ? tx('Henüz duyuru veya etkinlik yok', 'Nog geen nieuws of evenementen', 'No news or events yet')
+                      ? tx('Henüz duyuru veya etkinlik yok', 'Nog geen nieuws of evenementen', 'No news or events yet', 'Noch keine News oder Events')
                       : tip == 'duyuru'
-                      ? tx('Henüz duyuru yok', 'Nog geen nieuws', 'No news yet')
-                      : tx('Henüz etkinlik yok', 'Nog geen evenementen', 'No events yet'),
+                      ? tx('Henüz duyuru yok', 'Nog geen nieuws', 'No news yet', 'Noch keine News')
+                      : tx('Henüz etkinlik yok', 'Nog geen evenementen', 'No events yet', 'Noch keine Events'),
                   style: TextStyle(
                     fontSize: 18,
                     color: AppColors.textSecondary,
@@ -206,7 +206,7 @@ class _DuyurularScreenState extends State<DuyurularScreen>
                                 ),
                                 SizedBox(width: 6),
                                 Text(
-                                  isEtkinlik ? tx('ETKİNLİK', 'EVENEMENT', 'EVENT') : tx('DUYURU', 'NIEUWS', 'NEWS'),
+                                  isEtkinlik ? tx('ETKİNLİK', 'EVENEMENT', 'EVENT', 'EVENT') : tx('DUYURU', 'NIEUWS', 'NEWS', 'NEWS'),
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.bold,
@@ -392,7 +392,7 @@ class _DuyurularScreenState extends State<DuyurularScreen>
                           ),
                           SizedBox(width: 8),
                           Text(
-                            isEtkinlik ? tx('ETKİNLİK', 'EVENEMENT', 'EVENT') : tx('DUYURU', 'NIEUWS', 'NEWS'),
+                            isEtkinlik ? tx('ETKİNLİK', 'EVENEMENT', 'EVENT', 'EVENT') : tx('DUYURU', 'NIEUWS', 'NEWS', 'NEWS'),
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
@@ -491,7 +491,7 @@ class _DuyurularScreenState extends State<DuyurularScreen>
                             }
                           },
                           icon: Icon(Icons.open_in_new),
-                          label: Text(tx('Detaylı Bilgi', 'Meer informatie', 'More information')),
+                          label: Text(tx('Detaylı Bilgi', 'Meer informatie', 'More information', 'Mehr Informationen')),
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.all(16),
                           ),

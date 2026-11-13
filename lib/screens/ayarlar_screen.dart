@@ -2,12 +2,15 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../config/app_colors.dart';
+import '../config/flavor.dart';
 import '../l10n/dil.dart';
 import '../services/consent_service.dart';
 import 'karsilama_screen.dart';
 
-const String _gizlilikPolitikasiUrl =
-    'https://claude.ai/artifact/Q92sYX1EihTvRbrtKvTmrL';
+// TODO Köln: kendi gizlilik politikası hazırlanınca adresini yaz (boşken satır gizli).
+const String _gizlilikPolitikasiUrl = kKoeln
+    ? ''
+    : 'https://claude.ai/artifact/Q92sYX1EihTvRbrtKvTmrL';
 
 class AyarlarScreen extends StatefulWidget {
   @override
@@ -27,7 +30,7 @@ class _AyarlarScreenState extends State<AyarlarScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(tx('AYARLAR', 'INSTELLINGEN', 'SETTINGS')),
+        title: Text(tx('AYARLAR', 'INSTELLINGEN', 'SETTINGS', 'EINSTELLUNGEN')),
       ),
       body: ListView(
         padding: EdgeInsets.all(16),
@@ -35,16 +38,19 @@ class _AyarlarScreenState extends State<AyarlarScreen> {
           Card(
             child: ListTile(
               leading: Icon(Icons.language, color: AppColors.primary),
-              title: Text(tx('Dil', 'Taal', 'Language')),
-              subtitle: Text(Dil.kod == 'en' ? 'English' : 'Nederlands'),
+              title: Text(tx('Dil', 'Taal', 'Language', 'Sprache')),
+              subtitle: Text(Dil.kod == 'en'
+                  ? 'English'
+                  : (kKoeln ? 'Deutsch' : 'Nederlands')),
               onTap: () => dilSecimiGoster(context),
             ),
           ),
+          if (_gizlilikPolitikasiUrl.isNotEmpty)
           Card(
             child: ListTile(
               leading: Icon(Icons.description_outlined, color: AppColors.primary),
               title: Text(tx('Gizlilik politikası', 'Privacybeleid',
-                  'Privacy policy')),
+                  'Privacy policy', 'Datenschutzerklärung')),
               trailing: Icon(Icons.open_in_new,
                   size: 18, color: AppColors.primary),
               onTap: () => launchUrl(Uri.parse(_gizlilikPolitikasiUrl),
@@ -61,11 +67,11 @@ class _AyarlarScreenState extends State<AyarlarScreen> {
                   leading:
                       Icon(Icons.privacy_tip_outlined, color: AppColors.primary),
                   title: Text(tx('Gizlilik seçenekleri', 'Privacyopties',
-                      'Privacy options')),
+                      'Privacy options', 'Datenschutzoptionen')),
                   subtitle: Text(tx(
                       'Reklam onayını değiştir',
                       'Wijzig je toestemming voor advertenties',
-                      'Change your ad consent')),
+                      'Change your ad consent', 'Werbe-Einwilligung ändern')),
                   onTap: ConsentService.gizlilikSecenekleriniGoster,
                 ),
               );

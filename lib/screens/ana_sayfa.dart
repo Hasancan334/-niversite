@@ -105,15 +105,15 @@ class _AnaSayfaState extends State<AnaSayfa> {
         backgroundColor: Colors.white,
         elevation: 0.5,
         actions: [
-          if (kAmsterdam)
+          if (kYabanci)
             IconButton(
-              tooltip: tx('Dil', 'Taal', 'Language'),
+              tooltip: tx('Dil', 'Taal', 'Language', 'Sprache'),
               icon: Icon(Icons.language, color: AppColors.primary),
               onPressed: () => dilSecimiGoster(context),
             ),
-          if (kAmsterdam)
+          if (kYabanci)
             IconButton(
-              tooltip: tx('Ayarlar', 'Instellingen', 'Settings'),
+              tooltip: tx('Ayarlar', 'Instellingen', 'Settings', 'Einstellungen'),
               icon: Icon(Icons.settings_outlined, color: AppColors.primary),
               onPressed: () => Navigator.push(context,
                   MaterialPageRoute(builder: (_) => AyarlarScreen())),
@@ -155,7 +155,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                     style: const TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
-                      color: kAmsterdam ? AppColors.primary : Color(0xFF8036E0),
+                      color: kYabanci ? AppColors.primary : Color(0xFF8036E0),
                     ),
                   ),
                 ),
@@ -179,55 +179,65 @@ class _AnaSayfaState extends State<AnaSayfa> {
                 children: [_buildMenuButton(
                   context,
                   icon: '🎓',
-                  title: tx('Öğrenci\nOtomasyonu', 'Canvas &\nStudentenportaal', 'Canvas &\nStudent portal'),
+                  title: kKoeln
+                      ? 'KLIPS 2.0'
+                      : tx('Öğrenci\nOtomasyonu', 'Canvas &\nStudentenportaal', 'Canvas &\nStudent portal'),
                   onTap: () async {
                     final url = Uri.parse(UniversityConfig.obsUrl);
                     await launchUrl(url, mode: LaunchMode.externalApplication);
                   },
                 ),
 
-                  // Amsterdam'da harçlık/iş ilanı bölümü yok
-                  if (!kAmsterdam)
+                  // Yurt dışı flavor'larında harçlık/iş ilanı bölümü yok
+                  if (!kYabanci)
                   _buildMenuButton(
                     context,
                     icon: '💸',
                     title: tx('Harçlık\nKapısı', 'Bijbanen\n& klusjes', 'Student\njobs'),
                     onTap: () => _navigateWithAd(context, IsIlanlariScreen()),
                   ),
-                  // UvA'da günlük yemekhane menüsü yok; sadece Türk flavor'larında
-                  if (!kAmsterdam)
+                  // Günlük yemekhane menüsü sadece Türk flavor'larında
+                  if (!kYabanci)
                   _buildMenuButton(
                     context,
                     icon: '🍽️',
                     title: tx('Günlük\nYemek Menüsü', 'Menu van\nde dag', 'Menu of\nthe day'),
                     onTap: () => _navigateWithAd(context, YemekListesiScreen()),
                   ),
+                  // Köln: Studierendenwerk mensaları (menü resmi sitede)
+                  if (kKoeln)
+                  _buildMenuButton(
+                    context,
+                    icon: '🍽️',
+                    title: tx('Mensa', 'Mensa', 'Canteens', 'Mensa'),
+                    onTap: () => _navigateWithAd(context, MensaScreen()),
+                  ),
                   _buildMenuButton(
                     context,
                     icon: '📚',
-                    title: tx('Ders\nNotları', 'Studie-\nmateriaal', 'Study\nmaterials'),
+                    title: tx('Ders\nNotları', 'Studie-\nmateriaal', 'Study\nmaterials', 'Studium &\nBibliothek'),
                     onTap: () => _navigateWithAd(context, DersNotlariScreen()),
                   ),
                   _buildMenuButton(
                     context,
                     icon: '👥',
-                    title: tx('Kulüpler', 'Verenigingen', 'Student\nclubs'),
+                    title: tx('Kulüpler', 'Verenigingen', 'Student\nclubs', 'Vereine &\nGruppen'),
                     onTap: () => _navigateWithAd(context, KuluplerScreen()),
                   ),
                   _buildMenuButton(
                     context,
                     icon: '💬',
-                    title: tx('Goygoy\nOdası', 'Studenten-\nchat', 'Student\nchat'),
+                    title: tx('Goygoy\nOdası', 'Studenten-\nchat', 'Student\nchat', 'Studi-\nChat'),
                     onTap: () => _navigateWithAd(context, SohbetScreen()),
                   ),
                   _buildMenuButton(
                     context,
                     icon: '📢',
-                    title: tx('Duyurular\n& Etkinlikler', 'Nieuws &\nEvenementen', 'News &\nEvents'),
+                    title: tx('Duyurular\n& Etkinlikler', 'Nieuws &\nEvenementen', 'News &\nEvents', 'News &\nEvents'),
                     onTap: () => _navigateWithAd(context, DuyurularScreen()),
                   ),
-                  // Amsterdam'da anlaşmalı mekan yok; sadece Türk flavor'larında
-                  if (!kAmsterdam)
+                  // Anlaşmalı mekanlar sadece Türk flavor'larında
+                  if (!kYabanci)
                   _buildMenuButton(
                     context,
                     icon: '🍔',
@@ -235,30 +245,30 @@ class _AnaSayfaState extends State<AnaSayfa> {
                     onTap: () => _navigateWithAd(context, MekanlarScreen()),
                   ),
 
-                  if (kAmsterdam) ...[
+                  if (kYabanci) ...[
                     _buildMenuButton(
                       context,
                       icon: '📅',
-                      title: tx('Akademik\nTakvim', 'Academische\nkalender', 'Academic\ncalendar'),
+                      title: tx('Akademik\nTakvim', 'Academische\nkalender', 'Academic\ncalendar', 'Semester-\nkalender'),
                       onTap: () => _navigateWithAd(context, AkademikTakvimScreen()),
                     ),
                     _buildMenuButton(
                       context,
                       icon: '🗺️',
-                      title: tx('Kampüsler', 'Campussen\n& gebouwen', 'Campuses\n& buildings'),
+                      title: tx('Kampüsler', 'Campussen\n& gebouwen', 'Campuses\n& buildings', 'Campus &\nGebäude'),
                       onTap: () => _navigateWithAd(context, KampusScreen()),
                     ),
                     _buildMenuButton(
                       context,
                       icon: '🔗',
-                      title: tx('Önemli\nLinkler', 'Handige\nlinks', 'Useful\nlinks'),
+                      title: tx('Önemli\nLinkler', 'Handige\nlinks', 'Useful\nlinks', 'Nützliche\nLinks'),
                       onTap: () => _navigateWithAd(context, OnemliLinklerScreen()),
                     ),
                   ],
                   _buildMenuButton(
                     context,
                     icon: 'ℹ️',
-                    title: tx('Hakkımızda', 'Over\nons', 'About\nus'),
+                    title: tx('Hakkımızda', 'Over\nons', 'About\nus', 'Über\nuns'),
                     onTap: () => _navigateWithAd(context, HakkindaScreen()),
                   ),
                 ],

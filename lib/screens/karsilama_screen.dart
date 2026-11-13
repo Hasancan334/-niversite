@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import '../config/app_colors.dart';
 import '../config/university_config.dart';
 import '../l10n/dil.dart';
+import '../config/flavor.dart';
+
+// Yerel dil (Amsterdam: Hollandaca, Köln: Almanca)
+const String _yerelBayrak = kKoeln ? '🇩🇪' : '🇳🇱';
+const String _yerelAd = kKoeln ? 'Deutsch' : 'Nederlands';
 
 /// İlk açılış: önce karşılama (Welkom / Welcome), sonra dil seçimi.
 class KarsilamaScreen extends StatefulWidget {
@@ -30,7 +35,7 @@ class _KarsilamaScreenState extends State<KarsilamaScreen> {
         _logo(),
         SizedBox(height: 32),
         Text(
-          'Welkom!',
+          kKoeln ? 'Willkommen!' : 'Welkom!',
           style: TextStyle(
               fontSize: 34, fontWeight: FontWeight.bold, color: AppColors.primary),
         ),
@@ -49,8 +54,10 @@ class _KarsilamaScreenState extends State<KarsilamaScreen> {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 12),
           child: Text(
-            'Alles voor je studentenleven op één plek.\n'
-            'Everything for your student life in one place.',
+            (kKoeln
+                    ? 'Alles für dein Studium an einem Ort.\n'
+                    : 'Alles voor je studentenleven op één plek.\n') +
+                'Everything for your student life in one place.',
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 15, height: 1.5, color: AppColors.textSecondary),
@@ -61,7 +68,8 @@ class _KarsilamaScreenState extends State<KarsilamaScreen> {
           width: double.infinity,
           child: ElevatedButton(
             onPressed: () => setState(() => _dilAdimi = true),
-            child: Text('Verder / Continue', style: TextStyle(fontSize: 17)),
+            child: Text(kKoeln ? 'Weiter / Continue' : 'Verder / Continue',
+                style: TextStyle(fontSize: 17)),
           ),
         ),
       ],
@@ -76,8 +84,10 @@ class _KarsilamaScreenState extends State<KarsilamaScreen> {
         child: ElevatedButton(
           onPressed: () => Dil.sec(kod),
           style: ElevatedButton.styleFrom(
-            backgroundColor: kod == 'nl' ? AppColors.primary : AppColors.white,
-            foregroundColor: kod == 'nl' ? AppColors.white : AppColors.primary,
+            backgroundColor:
+                kod == Dil.yerelKod ? AppColors.primary : AppColors.white,
+            foregroundColor:
+                kod == Dil.yerelKod ? AppColors.white : AppColors.primary,
             side: BorderSide(color: AppColors.primary, width: 1.5),
             padding: EdgeInsets.symmetric(vertical: 18),
           ),
@@ -103,7 +113,7 @@ class _KarsilamaScreenState extends State<KarsilamaScreen> {
         Icon(Icons.language, size: 64, color: AppColors.primary),
         SizedBox(height: 20),
         Text(
-          'Kies je taal',
+          kKoeln ? 'Wähle deine Sprache' : 'Kies je taal',
           style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 4),
@@ -112,11 +122,13 @@ class _KarsilamaScreenState extends State<KarsilamaScreen> {
           style: TextStyle(fontSize: 18, color: AppColors.textSecondary),
         ),
         SizedBox(height: 36),
-        _dilKarti('nl', '🇳🇱', 'Nederlands'),
+        _dilKarti(Dil.yerelKod, _yerelBayrak, _yerelAd),
         _dilKarti('en', '🇬🇧', 'English'),
         SizedBox(height: 8),
         Text(
-          'Je kunt dit later wijzigen / You can change this later',
+          kKoeln
+              ? 'Du kannst das später ändern / You can change this later'
+              : 'Je kunt dit later wijzigen / You can change this later',
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
         ),
@@ -151,18 +163,19 @@ void dilSecimiGoster(BuildContext context) {
   showDialog(
     context: context,
     builder: (ctx) => SimpleDialog(
-      title: Text(tx('Dil', 'Taal', 'Language')),
+      title: Text(tx('Dil', 'Taal', 'Language', 'Sprache')),
       children: [
         SimpleDialogOption(
           onPressed: () {
             Navigator.pop(ctx);
-            Dil.sec('nl');
+            Dil.sec(Dil.yerelKod);
           },
-          child: Text('🇳🇱  Nederlands',
+          child: Text('$_yerelBayrak  $_yerelAd',
               style: TextStyle(
                   fontSize: 16,
-                  fontWeight:
-                      Dil.kod == 'nl' ? FontWeight.bold : FontWeight.normal)),
+                  fontWeight: Dil.kod == Dil.yerelKod
+                      ? FontWeight.bold
+                      : FontWeight.normal)),
         ),
         SimpleDialogOption(
           onPressed: () {

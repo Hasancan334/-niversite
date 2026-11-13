@@ -5,7 +5,7 @@ import '../config/flavor.dart';
 import '../l10n/dil.dart';
 import '../widgets/banner_ad_widget.dart';
 import '../models/fakulte_data.dart';
-import '../models/uva_data.dart';
+import '../models/yerel_data.dart';
 
 Future<void> _linkAc(String url) async {
   final uri = Uri.parse(url);
@@ -20,9 +20,9 @@ class DersNotlariScreen extends StatelessWidget {
     return Scaffold(
       bottomNavigationBar: BannerAdWidget(),
       appBar: AppBar(
-        title: Text(tx('DERS NOTLARI', 'STUDIEMATERIAAL', 'STUDY MATERIALS')),
+        title: Text(tx('DERS NOTLARI', 'STUDIEMATERIAAL', 'STUDY MATERIALS', 'STUDIUM & BIBLIOTHEK')),
       ),
-      body: kAmsterdam ? _uvaBody() : _turkceBody(),
+      body: kYabanci ? _uvaBody() : _turkceBody(),
     );
   }
 
@@ -37,29 +37,37 @@ class DersNotlariScreen extends StatelessWidget {
             tx(
               '',
               'Handige links voor je studie. Voor inloggen heb je je UvAnetID nodig.',
-              'Useful links for your studies. You need your UvAnetID to log in.',
+              kKoeln
+                  ? 'Useful links for your studies. You need your university account to log in.'
+                  : 'Useful links for your studies. You need your UvAnetID to log in.',
+              'Nützliche Links für dein Studium. Zum Einloggen brauchst du deinen Uni-Account.',
             ),
             style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
           ),
         ),
-        ...UvaData.bronnen.map((cat) {
+        ...YerelData.quellen.map((cat) {
           return Card(
             margin: EdgeInsets.only(bottom: 12),
             child: ExpansionTile(
               initiallyExpanded: true,
               leading: Icon(cat.icon, color: AppColors.primary),
               title: Text(
-                tx('', cat.nl, cat.en),
+                yx(cat.nl, cat.en),
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               children: cat.items.map((link) {
                 return ListTile(
                   contentPadding:
                       EdgeInsets.symmetric(horizontal: 24, vertical: 4),
+                  // Amsterdam verisinde ad = açıklama; Köln'de ad ve açıklama ayrı
                   title: Text(
-                    tx('', link.nl, link.en),
+                    kKoeln ? link.naam : yx(link.nl, link.en),
                     style: TextStyle(fontSize: 14),
                   ),
+                  subtitle: kKoeln
+                      ? Text(yx(link.nl, link.en),
+                          style: TextStyle(fontSize: 12))
+                      : null,
                   trailing: Icon(Icons.open_in_new,
                       size: 18, color: AppColors.primary),
                   onTap: () => _linkAc(link.url),

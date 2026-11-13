@@ -41,18 +41,18 @@ class _SohbetScreenState extends State<SohbetScreen> {
     final onay = await showDialog<bool>(
       context: context,
       builder: (_) => AlertDialog(
-        title: Text(tx('Mesajı şikayet et', 'Bericht melden', 'Report message')),
+        title: Text(tx('Mesajı şikayet et', 'Bericht melden', 'Report message', 'Nachricht melden')),
         content: Text(tx(
             'Bu mesaj uygunsuz içerik barındırıyor mu?',
             'Bevat dit bericht ongepaste inhoud?',
-            'Does this message contain inappropriate content?')),
+            'Does this message contain inappropriate content?', 'Enthält diese Nachricht unangemessene Inhalte?')),
         actions: [
           TextButton(
               onPressed: () => Navigator.pop(context, false),
-              child: Text(tx('Vazgeç', 'Annuleren', 'Cancel'))),
+              child: Text(tx('Vazgeç', 'Annuleren', 'Cancel', 'Abbrechen'))),
           TextButton(
               onPressed: () => Navigator.pop(context, true),
-              child: Text(tx('Şikayet et', 'Melden', 'Report'))),
+              child: Text(tx('Şikayet et', 'Melden', 'Report', 'Melden'))),
         ],
       ),
     );
@@ -71,7 +71,7 @@ class _SohbetScreenState extends State<SohbetScreen> {
             content: Text(tx(
                 'Şikayetiniz alındı, teşekkürler.',
                 'Bedankt, je melding is ontvangen.',
-                'Thanks, your report has been received.'))),
+                'Thanks, your report has been received.', 'Danke, deine Meldung ist eingegangen.'))),
       );
     }
   }
@@ -82,12 +82,12 @@ class _SohbetScreenState extends State<SohbetScreen> {
       context: context,
       barrierDismissible: degistir,
       builder: (_) => AlertDialog(
-        title: Text(tx('Takma adın?', 'Je bijnaam?', 'Your nickname?')),
+        title: Text(tx('Takma adın?', 'Je bijnaam?', 'Your nickname?', 'Dein Spitzname?')),
         content: TextField(
           controller: c,
           maxLength: 15,
           decoration: InputDecoration(
-              hintText: tx('Örn: Ahmet', 'Bijv. Sanne', 'E.g. Alex')),
+              hintText: tx('Örn: Ahmet', 'Bijv. Sanne', 'E.g. Alex', 'Z. B. Lena')),
         ),
         actions: [
           TextButton(
@@ -98,7 +98,7 @@ class _SohbetScreenState extends State<SohbetScreen> {
               setState(() => _isim = c.text.trim());
               Navigator.pop(context);
             },
-            child: Text(tx('Tamam', 'OK', 'OK')),
+            child: Text(tx('Tamam', 'OK', 'OK', 'OK')),
           ),
         ],
       ),
@@ -128,9 +128,9 @@ class _SohbetScreenState extends State<SohbetScreen> {
 
   String _gunBasligi(DateTime t) {
     final simdi = DateTime.now();
-    if (_ayniGun(t, simdi)) return tx('Bugün', 'Vandaag', 'Today');
+    if (_ayniGun(t, simdi)) return tx('Bugün', 'Vandaag', 'Today', 'Heute');
     if (_ayniGun(t, simdi.subtract(Duration(days: 1)))) {
-      return tx('Dün', 'Gisteren', 'Yesterday');
+      return tx('Dün', 'Gisteren', 'Yesterday', 'Gestern');
     }
     final bugun = DateTime(simdi.year, simdi.month, simdi.day);
     final gun = DateTime(t.year, t.month, t.day);
@@ -175,25 +175,25 @@ class _SohbetScreenState extends State<SohbetScreen> {
               leading: Icon(Icons.schedule),
               title: Text(d['isim'] ?? ''),
               subtitle: Text(gonderiliyor
-                  ? tx('Gönderiliyor...', 'Wordt verzonden...', 'Sending...')
+                  ? tx('Gönderiliyor...', 'Wordt verzonden...', 'Sending...', 'Wird gesendet …')
                   : _tamZaman(zaman)),
             ),
             Divider(height: 1),
             ListTile(
               leading: Icon(Icons.copy),
               title: Text(tx('Mesajı kopyala', 'Bericht kopiëren',
-                  'Copy message')),
+                  'Copy message', 'Nachricht kopieren')),
               onTap: () {
                 Clipboard.setData(ClipboardData(text: d['mesaj'] ?? ''));
                 Navigator.pop(ctx);
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text(tx('Kopyalandı', 'Gekopieerd', 'Copied'))));
+                    content: Text(tx('Kopyalandı', 'Gekopieerd', 'Copied', 'Kopiert'))));
               },
             ),
             if (!benim)
               ListTile(
                 leading: Icon(Icons.flag_outlined, color: AppColors.error),
-                title: Text(tx('Şikayet et', 'Melden', 'Report')),
+                title: Text(tx('Şikayet et', 'Melden', 'Report', 'Melden')),
                 onTap: () {
                   Navigator.pop(ctx);
                   _sikayetEt(mesajId, d);
@@ -228,11 +228,11 @@ class _SohbetScreenState extends State<SohbetScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(tx('SOHBET ODASI', 'STUDENTENCHAT', 'STUDENT CHAT')),
+        title: Text(tx('SOHBET ODASI', 'STUDENTENCHAT', 'STUDENT CHAT', 'STUDI-CHAT')),
         actions: [
           IconButton(
             tooltip: tx('Takma adı değiştir', 'Bijnaam wijzigen',
-                'Change nickname'),
+                'Change nickname', 'Spitznamen ändern'),
             icon: Icon(Icons.edit_outlined),
             onPressed: () => _isimSor(degistir: true),
           ),
@@ -256,7 +256,7 @@ class _SohbetScreenState extends State<SohbetScreen> {
                   return Center(
                       child: Text(tx('İlk mesajı sen yaz! 👋',
                           'Schrijf het eerste bericht! 👋',
-                          'Write the first message! 👋')));
+                          'Write the first message! 👋', 'Schreib die erste Nachricht! 👋')));
                 }
                 return ListView.builder(
                   reverse: true,
@@ -373,7 +373,7 @@ class _SohbetScreenState extends State<SohbetScreen> {
                       decoration: InputDecoration(
                         counterText: '',
                         hintText: tx('Mesaj yaz...', 'Schrijf een bericht...',
-                            'Write a message...'),
+                            'Write a message...', 'Nachricht schreiben …'),
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(

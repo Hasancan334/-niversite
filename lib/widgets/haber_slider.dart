@@ -75,7 +75,7 @@ class _HaberSliderState extends State<HaberSlider> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(etkinlik ? tx('🎉 ETKİNLİK', '🎉 EVENEMENT', '🎉 EVENT') : tx('📢 DUYURU', '📢 NIEUWS', '📢 NEWS'),
+                      Text(etkinlik ? tx('🎉 ETKİNLİK', '🎉 EVENEMENT', '🎉 EVENT', '🎉 EVENT') : tx('📢 DUYURU', '📢 NIEUWS', '📢 NEWS', '📢 NEWS'),
                           style: TextStyle(
                               color: Colors.white70,
                               fontSize: 11,

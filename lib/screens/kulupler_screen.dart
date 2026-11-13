@@ -4,7 +4,7 @@ import '../config/app_colors.dart';
 import '../config/flavor.dart';
 import '../l10n/dil.dart';
 import '../models/kulupler_data.dart';
-import '../models/uva_data.dart';
+import '../models/yerel_data.dart';
 import '../widgets/banner_ad_widget.dart';
 
 Future<void> _linkAc(String url) async {
@@ -20,9 +20,9 @@ class KuluplerScreen extends StatelessWidget {
     return Scaffold(
       bottomNavigationBar: BannerAdWidget(),
       appBar: AppBar(
-        title: Text(tx('KULÜPLER', 'VERENIGINGEN', 'STUDENT CLUBS')),
+        title: Text(tx('KULÜPLER', 'VERENIGINGEN', 'STUDENT CLUBS', 'VEREINE & GRUPPEN')),
       ),
-      body: kAmsterdam ? _uvaBody() : _turkceBody(),
+      body: kYabanci ? _uvaBody() : _turkceBody(),
     );
   }
 
@@ -44,17 +44,18 @@ class KuluplerScreen extends StatelessWidget {
               '',
               'Ontdek verenigingen en studentenorganisaties. Tik op een naam om de website of het social-mediakanaal te openen.',
               'Discover student associations and organisations. Tap a name to open their website or social media page.',
+              'Entdecke Vereine und studentische Gruppen. Tippe auf einen Namen, um die Website zu öffnen.',
             ),
             style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
           ),
         ),
-        ...UvaData.verenigingen.map((cat) {
+        ...YerelData.vereine.map((cat) {
           return Card(
             margin: EdgeInsets.only(bottom: 12),
             child: ExpansionTile(
               leading: Icon(cat.icon, color: AppColors.primary),
               title: Text(
-                tx('', cat.nl, cat.en),
+                yx(cat.nl, cat.en),
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               subtitle: Text(
@@ -72,7 +73,7 @@ class KuluplerScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
                   ),
                   subtitle: Text(
-                    tx('', link.nl, link.en),
+                    yx(link.nl, link.en),
                     style:
                         TextStyle(fontSize: 12, color: AppColors.textSecondary),
                   ),

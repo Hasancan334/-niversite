@@ -23,8 +23,8 @@ void main() async {
   await Firebase.initializeApp();
 
   // Tarsus/Mersin: AdMob eskisi gibi hemen başlar.
-  // Amsterdam: AdMob, UMP onayı alındıktan sonra (canRequestAds) başlar.
-  if (!kAmsterdam) {
+  // Amsterdam/Köln: AdMob, UMP onayı alındıktan sonra (canRequestAds) başlar.
+  if (!kYabanci) {
     await ConsentService.onaysizBaslat();
   }
   await NotificationService.initialize();  // YENİ!
@@ -32,7 +32,7 @@ void main() async {
 
   runApp(MyApp());
 
-  if (kAmsterdam) {
+  if (kYabanci) {
     ConsentService.amsterdamBaslat();
   }
 }
@@ -76,7 +76,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: (kAmsterdam && !Dil.secildiMi) ? KarsilamaScreen() : AnaSayfa(),
+      home: (kYabanci && !Dil.secildiMi) ? KarsilamaScreen() : AnaSayfa(),
     ));
   }
 }

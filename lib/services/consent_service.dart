@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../config/flavor.dart';
 
-/// AB/AVG (GDPR) için reklam onayı (Google UMP). Sadece Amsterdam flavor'unda
+/// AB/AVG (GDPR) için reklam onayı (Google UMP). Sadece Amsterdam ve Köln flavor'larında
 /// kullanılır. AdMob konsolunda Gizlilik ve mesajlaşma > Avrupa düzenlemeleri
 /// mesajı yayınlanmış olmalı; yoksa form gösterilmez.
 ///
@@ -46,7 +46,7 @@ class ConsentService {
 
   static ConsentRequestParameters _parametreler() {
     // kDebugMode release'de sabit false; bu dal release derlemesine girmez.
-    if (kAmsterdam && kDebugMode) {
+    if (kYabanci && kDebugMode) {
       return ConsentRequestParameters(
         consentDebugSettings: ConsentDebugSettings(
           debugGeography: DebugGeography.debugGeographyEea,
@@ -69,7 +69,7 @@ class ConsentService {
 
   /// Ayarlar ekranındaki "Privacy options" butonu görünsün mü?
   static Future<bool> gizlilikSecenekleriGerekli() async {
-    if (!kAmsterdam) return false;
+    if (!kYabanci) return false;
     final durum =
         await ConsentInformation.instance.getPrivacyOptionsRequirementStatus();
     return durum == PrivacyOptionsRequirementStatus.required;

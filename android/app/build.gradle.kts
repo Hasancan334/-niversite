@@ -11,7 +11,8 @@ plugins {
 // Her flavor kendi anahtar dosyasını kullanır (android/ klasöründe):
 //   key-tarsus.properties, key-mersin.properties, key-amsterdam.properties
 // Tarsus ve Mersin için bulunamazsa eski key.properties kullanılır.
-// Amsterdam için YALNIZCA key-amsterdam.properties (yanlış anahtarla imzalamayı önler).
+// Amsterdam ve Köln için YALNIZCA kendi dosyası (yanlış anahtarla imzalamayı önler).
+//   key-amsterdam.properties, key-koeln.properties
 fun loadKeyProps(names: List<String>): Properties? {
     for (n in names) {
         val f = rootProject.file(n)
@@ -51,7 +52,8 @@ android {
         val anahtarDosyalari = mapOf(
             "tarsus" to listOf("key-tarsus.properties", "key.properties"),
             "mersin" to listOf("key-mersin.properties", "key.properties"),
-            "amsterdam" to listOf("key-amsterdam.properties")
+            "amsterdam" to listOf("key-amsterdam.properties"),
+            "koeln" to listOf("key-koeln.properties")
         )
         for ((flavor, dosyalar) in anahtarDosyalari) {
             val p = loadKeyProps(dosyalar)
@@ -83,6 +85,15 @@ android {
             versionCode = 1
             resValue("string", "app_name", "Studentengids Amsterdam – UvA")
             manifestPlaceholders["admobAppId"] = "ca-app-pub-5799565273289643~5234613327"
+        }
+        create("koeln") {
+            dimension = "uni"
+            signingConfig = signingConfigs.findByName("koelnRelease")
+            applicationId = "com.hasan.koeln_genc"
+            versionCode = 1
+            resValue("string", "app_name", "Studienguide Köln")
+            // TODO: Google'ın TEST AdMob uygulama kimliği. Yayından önce Köln'ün gerçek kimliğini yaz.
+            manifestPlaceholders["admobAppId"] = "ca-app-pub-3940256099942544~3347511713"
         }
         create("mersin") {
             dimension = "uni"

@@ -1,10 +1,13 @@
-// Amsterdam flavor'una özel ekranlar: akademik takvim, kampüsler, önemli linkler.
+// Yurt dışı flavor'larına (Amsterdam, Köln) özel ekranlar:
+// akademik takvim, kampüsler, önemli linkler, mensa (sadece Köln).
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../config/app_colors.dart';
 import '../l10n/dil.dart';
 import '../models/uva_extra_data.dart';
+import '../models/yerel_data.dart';
+import '../models/koeln_data.dart';
 import '../widgets/banner_ad_widget.dart';
 
 Future<void> _ac(String url) async {
@@ -71,21 +74,22 @@ class AkademikTakvimScreen extends StatelessWidget {
       bottomNavigationBar: BannerAdWidget(),
       appBar: AppBar(
         title: Text(tx('AKADEMİK TAKVİM', 'ACADEMISCHE KALENDER',
-            'ACADEMIC CALENDAR')),
+            'ACADEMIC CALENDAR', 'AKADEMISCHER KALENDER')),
       ),
       body: ListView(
         padding: EdgeInsets.all(16),
         children: [
           _bilgiKutusu(
             tx(
-                'Akademik yıl ${UvaExtraData.takvimJaar}. Sınav tarihleri derse göre değişir.',
-                'Academisch jaar ${UvaExtraData.takvimJaar}. Tentamendata verschillen per vak; check je rooster.',
-                'Academic year ${UvaExtraData.takvimJaar}. Exam dates differ per course; check your timetable.'),
+                'Akademik yıl ${YerelData.takvimYil}. Sınav tarihleri derse göre değişir.',
+                'Academisch jaar ${YerelData.takvimYil}. Tentamendata verschillen per vak; check je rooster.',
+                'Academic year ${YerelData.takvimYil}. Exam dates differ per course; check your timetable.',
+                'Studienjahr ${YerelData.takvimYil}. Prüfungstermine sind je nach Kurs unterschiedlich; siehe KLIPS.'),
             linkMetni: tx('Resmi takvim', 'Officiële kalender',
-                'Official calendar'),
-            url: UvaExtraData.takvimUrl,
+                'Official calendar', 'Offizielle Termine'),
+            url: YerelData.takvimUrl,
           ),
-          ...UvaExtraData.takvim.map((t) {
+          ...YerelData.takvim.map((t) {
             final gecti = t.eind.isBefore(bugun);
             final simdiMi = !t.begin.isAfter(bugun) && !t.eind.isBefore(bugun);
             final renk = t.tur == TakvimTur.periode
@@ -108,7 +112,7 @@ class AkademikTakvimScreen extends StatelessWidget {
                     backgroundColor: renk.withOpacity(0.12),
                     child: Icon(_ikon(t.tur), color: renk, size: 20),
                   ),
-                  title: Text(tx(t.nl, t.nl, t.en),
+                  title: Text(yx(t.nl, t.en),
                       style: TextStyle(fontWeight: FontWeight.w600)),
                   subtitle: Text(_aralik(t)),
                   trailing: simdiMi
@@ -119,7 +123,7 @@ class AkademikTakvimScreen extends StatelessWidget {
                             color: renk,
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: Text(tx('Şimdi', 'Nu', 'Now'),
+                          child: Text(tx('Şimdi', 'Nu', 'Now', 'Jetzt'),
                               style: TextStyle(
                                   color: Colors.white, fontSize: 11)),
                         )
@@ -141,7 +145,7 @@ class KampusScreen extends StatelessWidget {
     return Scaffold(
       bottomNavigationBar: BannerAdWidget(),
       appBar: AppBar(
-        title: Text(tx('KAMPÜSLER', 'CAMPUSSEN', 'CAMPUSES')),
+        title: Text(tx('KAMPÜSLER', 'CAMPUSSEN', 'CAMPUSES', 'CAMPUS')),
       ),
       body: ListView(
         padding: EdgeInsets.all(16),
@@ -149,8 +153,9 @@ class KampusScreen extends StatelessWidget {
           _bilgiKutusu(tx(
               'Bir binaya dokun, haritada açılsın.',
               'Tik op een gebouw om het op de kaart te openen.',
-              'Tap a building to open it on the map.')),
-          ...UvaExtraData.campussen.map((c) {
+              'Tap a building to open it on the map.',
+              'Tippe auf ein Gebäude, um es auf der Karte zu öffnen.')),
+          ...YerelData.kampusler.map((c) {
             return Card(
               margin: EdgeInsets.only(bottom: 12),
               child: ExpansionTile(
@@ -159,14 +164,14 @@ class KampusScreen extends StatelessWidget {
                 title: Text(c.naam,
                     style:
                         TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                subtitle: Text(tx(c.nl, c.nl, c.en),
+                subtitle: Text(yx(c.nl, c.en),
                     style: TextStyle(fontSize: 12)),
                 children: c.gebouwen.map((g) {
                   return ListTile(
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 24, vertical: 2),
                     title: Text(g.naam, style: TextStyle(fontSize: 14)),
-                    subtitle: Text('${g.adres}\n${tx(g.nl, g.nl, g.en)}',
+                    subtitle: Text('${g.adres}\n${yx(g.nl, g.en)}',
                         style: TextStyle(fontSize: 12)),
                     isThreeLine: true,
                     trailing: Icon(Icons.map_outlined,
@@ -190,17 +195,17 @@ class OnemliLinklerScreen extends StatelessWidget {
     return Scaffold(
       bottomNavigationBar: BannerAdWidget(),
       appBar: AppBar(
-        title: Text(tx('ÖNEMLİ LİNKLER', 'HANDIGE LINKS', 'USEFUL LINKS')),
+        title: Text(tx('ÖNEMLİ LİNKLER', 'HANDIGE LINKS', 'USEFUL LINKS', 'NÜTZLICHE LINKS')),
       ),
       body: ListView(
         padding: EdgeInsets.all(16),
-        children: UvaExtraData.belangrijkeLinks.map((cat) {
+        children: YerelData.links.map((cat) {
           return Card(
             margin: EdgeInsets.only(bottom: 12),
             child: ExpansionTile(
               initiallyExpanded: true,
               leading: Icon(cat.icon, color: AppColors.primary),
-              title: Text(tx(cat.nl, cat.nl, cat.en),
+              title: Text(yx(cat.nl, cat.en),
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               children: cat.items.map((l) {
                 final tel = l.url.startsWith('tel:');
@@ -208,7 +213,7 @@ class OnemliLinklerScreen extends StatelessWidget {
                   contentPadding:
                       EdgeInsets.symmetric(horizontal: 24, vertical: 2),
                   title: Text(l.naam, style: TextStyle(fontSize: 14)),
-                  subtitle: Text(tx(l.nl, l.nl, l.en),
+                  subtitle: Text(yx(l.nl, l.en),
                       style: TextStyle(fontSize: 12)),
                   trailing: Icon(tel ? Icons.phone : Icons.open_in_new,
                       size: 18, color: AppColors.primary),
@@ -218,6 +223,59 @@ class OnemliLinklerScreen extends StatelessWidget {
             ),
           );
         }).toList(),
+      ),
+    );
+  }
+}
+
+// ---------------------------------------------------------------- Mensa (Köln)
+class MensaScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      bottomNavigationBar: BannerAdWidget(),
+      appBar: AppBar(
+        title: Text(tx('MENSA', 'MENSA', 'CANTEENS', 'MENSA')),
+      ),
+      body: ListView(
+        padding: EdgeInsets.all(16),
+        children: [
+          _bilgiKutusu(
+            tx(
+                'Günlük menüleri Kölner Studierendenwerk yayınlıyor. Açılış saatleri değişebilir.',
+                '',
+                'Daily menus are published by the Kölner Studierendenwerk. Opening hours may change.',
+                'Die Speisepläne veröffentlicht das Kölner Studierendenwerk. Öffnungszeiten können sich ändern.'),
+            linkMetni: tx('Mensalar ve saatler', '', 'Canteens and opening hours',
+                'Mensen und Öffnungszeiten'),
+            url: KoelnData.mensaUrl,
+          ),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: () => _ac(KoelnData.speiseplanUrl),
+              icon: Icon(Icons.restaurant_menu),
+              label: Text(tx('Bugünün menüsü', '', "Today's menu",
+                  'Speiseplan heute')),
+            ),
+          ),
+          SizedBox(height: 12),
+          ...KoelnData.mensen.map((m) {
+            return Card(
+              margin: EdgeInsets.only(bottom: 8),
+              child: ListTile(
+                leading: Icon(Icons.restaurant, color: AppColors.primary),
+                title: Text(m.naam,
+                    style: TextStyle(fontWeight: FontWeight.w600)),
+                subtitle: Text('${m.adres}\n${yx(m.nl, m.en)}',
+                    style: TextStyle(fontSize: 12)),
+                isThreeLine: true,
+                trailing: Icon(Icons.map_outlined, color: AppColors.primary),
+                onTap: () => _ac(m.mapsUrl),
+              ),
+            );
+          }),
+        ],
       ),
     );
   }

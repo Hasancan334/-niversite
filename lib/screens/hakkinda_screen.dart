@@ -3,13 +3,14 @@ import '../l10n/dil.dart';
 import '../config/university_config.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../config/app_colors.dart';
+import '../config/flavor.dart';
 
 class HakkindaScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(tx('BİZ KİMİZ & İLETİŞİM', 'OVER ONS & CONTACT', 'ABOUT US & CONTACT')),
+        title: Text(tx('BİZ KİMİZ & İLETİŞİM', 'OVER ONS & CONTACT', 'ABOUT US & CONTACT', 'ÜBER UNS & KONTAKT')),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(24),
@@ -46,7 +47,7 @@ class HakkindaScreen extends StatelessWidget {
             SizedBox(height: 8),
 
             Text(
-              tx('Versiyon 1.0.0', 'Versie 1.0.0', 'Version 1.0.0'),
+              tx('Versiyon 1.0.0', 'Versie 1.0.0', 'Version 1.0.0', 'Version 1.0.0'),
               style: TextStyle(
                 fontSize: 14,
                 color: AppColors.textSecondary,
@@ -63,8 +64,11 @@ class HakkindaScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
-                tx('${UniversityConfig.name} öğrencileri için geliştirilmiş mobil uygulamadır. ', 'Een mobiele app voor studenten van ${UniversityConfig.name}. ', 'A mobile app for students of ${UniversityConfig.name}. ') +
-                    tx('Günlük yemek listesi, anlaşmalı mekanlar, ders notları ve daha fazlasını içerir.', 'Met de academische kalender, campussen, verenigingen, studiemateriaal en nog veel meer. Dit is geen officiële app van de Universiteit van Amsterdam.', 'Includes the academic calendar, campuses, student clubs, study materials and much more. This is not an official app of the University of Amsterdam.'),
+                tx('${UniversityConfig.name} öğrencileri için geliştirilmiş mobil uygulamadır. ', 'Een mobiele app voor studenten van ${UniversityConfig.name}. ', 'A mobile app for students of ${UniversityConfig.name}. ', 'Eine App für Studierende der ${UniversityConfig.name}. ') +
+                    tx('Günlük yemek listesi, anlaşmalı mekanlar, ders notları ve daha fazlasını içerir.', 'Met de academische kalender, campussen, verenigingen, studiemateriaal en nog veel meer. Dit is geen officiële app van de Universiteit van Amsterdam.', kKoeln
+                        ? 'Includes the semester calendar, canteens, campus buildings, student groups and much more. This is not an official app of the University of Cologne.'
+                        : 'Includes the academic calendar, campuses, student clubs, study materials and much more. This is not an official app of the University of Amsterdam.',
+                    'Mit Semesterkalender, Mensen, Campus-Gebäuden, Hochschulgruppen und vielem mehr. Dies ist keine offizielle App der Universität zu Köln.'),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 15,
@@ -78,7 +82,7 @@ class HakkindaScreen extends StatelessWidget {
 
             // GELİŞTİRİCİ BİLGİSİ
             Text(
-              tx('Geliştirici Şirket:', 'Ontwikkelaar:', 'Developer:'),
+              tx('Geliştirici Şirket:', 'Ontwikkelaar:', 'Developer:', 'Entwickler:'),
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -102,7 +106,7 @@ class HakkindaScreen extends StatelessWidget {
 
             // İLETİŞİM BUTONLARI
             Text(
-              tx('İletişim:', 'Contact:', 'Contact:'),
+              tx('İletişim:', 'Contact:', 'Contact:', 'Kontakt:'),
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -147,7 +151,7 @@ class HakkindaScreen extends StatelessWidget {
 
             // TELIF HAKKI
             Text(
-              tx('© 2026 Bumerang Yazılım\nTüm hakları saklıdır.', '© 2026 Bumerang Yazılım\nAlle rechten voorbehouden.', '© 2026 Bumerang Yazılım\nAll rights reserved.'),
+              tx('© 2026 Bumerang Yazılım\nTüm hakları saklıdır.', '© 2026 Bumerang Yazılım\nAlle rechten voorbehouden.', '© 2026 Bumerang Yazılım\nAll rights reserved.', '© 2026 Bumerang Yazılım\nAlle Rechte vorbehalten.'),
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 12,
