@@ -27,10 +27,14 @@ void main() async {
   if (!kYabanci) {
     await ConsentService.onaysizBaslat();
   }
-  await NotificationService.initialize();  // YENİ!
-
 
   runApp(MyApp());
+
+  // Bildirimler arka planda hazırlanır: izin penceresi, FCM token ve topic
+  // aboneliği ağ/Play Services yüzünden uzun sürebilir; açılışı bekletmesin.
+  NotificationService.initialize().catchError((e) {
+    print('Bildirim başlatılamadı: $e');
+  });
 
   if (kYabanci) {
     ConsentService.amsterdamBaslat();

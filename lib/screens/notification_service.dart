@@ -37,8 +37,10 @@ class NotificationService {
         .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(channel);
 
-    // Topic'lere abone ol
-    await _messaging.subscribeToTopic('all');
+    // Topic'lere abone ol (beklemeden; servis yoksa Firebase kendisi tekrar dener)
+    _messaging.subscribeToTopic('all').catchError((e) {
+      print('Topic aboneliği başarısız: $e');
+    });
 
     print('✅ Bildirim hazır');
   }
