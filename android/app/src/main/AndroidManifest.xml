@@ -4,22 +4,14 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <!-- Bildirim izinleri - YENİ! -->
 
     <application
         android:label="@string/app_name"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
-        <!-- FCM için -->
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="high_importance_channel" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="${admobAppId}"/>
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="high_importance_channel" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -43,11 +35,6 @@
             </intent-filter>
 
         </activity>
-        <service
-            android:name="com.google.firebase.messaging.FirebaseMessagingService"
-            android:exported="false">
-
-        </service>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data

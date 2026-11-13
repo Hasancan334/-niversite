@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:tarsus_genc/screens/notification_service.dart';
 import 'config/app_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'config/university_config.dart';
@@ -29,12 +28,6 @@ void main() async {
   }
 
   runApp(MyApp());
-
-  // Bildirimler arka planda hazırlanır: izin penceresi, FCM token ve topic
-  // aboneliği ağ/Play Services yüzünden uzun sürebilir; açılışı bekletmesin.
-  NotificationService.initialize().catchError((e) {
-    print('Bildirim başlatılamadı: $e');
-  });
 
   if (kYabanci) {
     ConsentService.amsterdamBaslat();
