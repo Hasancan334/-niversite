@@ -105,7 +105,8 @@ class _AnaSayfaState extends State<AnaSayfa> {
         backgroundColor: Colors.white,
         elevation: 0.5,
         actions: [
-          if (kYabanci)
+          // Köln'de dil seçimi Ayarlar içinde; ayrı dil butonu sadece Amsterdam'da
+          if (kAmsterdam)
             IconButton(
               tooltip: tx('Dil', 'Taal', 'Language', 'Sprache'),
               icon: Icon(Icons.language, color: AppColors.primary),
