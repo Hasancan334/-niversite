@@ -1,9 +1,13 @@
 // Amsterdam flavor'u: Ayarlar (dil + reklam gizlilik seçenekleri).
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../config/app_colors.dart';
 import '../l10n/dil.dart';
 import '../services/consent_service.dart';
 import 'karsilama_screen.dart';
+
+const String _gizlilikPolitikasiUrl =
+    'https://claude.ai/artifact/Q92sYX1EihTvRbrtKvTmrL';
 
 class AyarlarScreen extends StatefulWidget {
   @override
@@ -34,6 +38,17 @@ class _AyarlarScreenState extends State<AyarlarScreen> {
               title: Text(tx('Dil', 'Taal', 'Language')),
               subtitle: Text(Dil.kod == 'en' ? 'English' : 'Nederlands'),
               onTap: () => dilSecimiGoster(context),
+            ),
+          ),
+          Card(
+            child: ListTile(
+              leading: Icon(Icons.description_outlined, color: AppColors.primary),
+              title: Text(tx('Gizlilik politikası', 'Privacybeleid',
+                  'Privacy policy')),
+              trailing: Icon(Icons.open_in_new,
+                  size: 18, color: AppColors.primary),
+              onTap: () => launchUrl(Uri.parse(_gizlilikPolitikasiUrl),
+                  mode: LaunchMode.externalApplication),
             ),
           ),
           // Sadece UMP "required" dediğinde görünür (AB/EER kullanıcıları)
