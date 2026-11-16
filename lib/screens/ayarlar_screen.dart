@@ -7,9 +7,8 @@ import '../l10n/dil.dart';
 import '../services/consent_service.dart';
 import 'karsilama_screen.dart';
 
-// TODO Köln: kendi gizlilik politikası hazırlanınca adresini yaz (boşken satır gizli).
 const String _gizlilikPolitikasiUrl = kKoeln
-    ? ''
+    ? 'https://claude.ai/artifact/FymGSBYXUeSSwCbL6icSX4'
     : 'https://claude.ai/artifact/Q92sYX1EihTvRbrtKvTmrL';
 
 class AyarlarScreen extends StatefulWidget {

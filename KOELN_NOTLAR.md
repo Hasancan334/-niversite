@@ -15,8 +15,8 @@ Flavor: `koeln`  |  Paket: com.hasan.koeln_genc  |  Diller: Almanca (varsayılan
    - lib/services/ad_service.dart -> kKoeln banner ve geçiş kimlikleri
    AdMob > Gizlilik ve mesajlaşma > Avrupa düzenlemeleri mesajını yayınla.
 3. Keystore: android/key-koeln.properties + .jks (yeni üret, yedekle)
-4. Gizlilik politikası: hazırlanınca adresini lib/screens/ayarlar_screen.dart içine yaz
-   (boşken Ayarlar'da satır görünmez). Play Console da bu adresi ister.
+4. Gizlilik politikası: https://claude.ai/artifact/FymGSBYXUeSSwCbL6icSX4
+   (Share menüsünden "Anyone with the link" yapılmalı; Play Console bu adresi ister)
 5. Uygulama simgesi: android/app/src/koeln/res/mipmap-* (şu an Tarsus simgesi kullanılır)
 6. Logo: assets/images/koeln_logo.png geçici. Üniversitenin logosunu izinsiz kullanma.
 
