@@ -92,8 +92,7 @@ android {
             applicationId = "com.hasan.koeln_genc"
             versionCode = 1
             resValue("string", "app_name", "Studienguide Köln")
-            // TODO: Google'ın TEST AdMob uygulama kimliği. Yayından önce Köln'ün gerçek kimliğini yaz.
-            manifestPlaceholders["admobAppId"] = "ca-app-pub-3940256099942544~3347511713"
+            manifestPlaceholders["admobAppId"] = "ca-app-pub-5799565273289643~9706428534"
         }
         create("mersin") {
             dimension = "uni"

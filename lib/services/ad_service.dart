@@ -10,7 +10,7 @@ class AdService {
         return 'ca-app-pub-5799565273289643/1295368316'; // Amsterdam banner
       }
       if (kKoeln) {
-        return 'ca-app-pub-3940256099942544/6300978111'; // TODO Köln: Google TEST banner, gerçeğiyle değiştir
+        return 'ca-app-pub-5799565273289643/5491851357'; // Köln banner
       }
       return kMersin
           ? 'ca-app-pub-5799565273289643/6386757943' // Mersin banner
@@ -28,7 +28,7 @@ class AdService {
         return 'ca-app-pub-5799565273289643/7286061591'; // Amsterdam geçiş
       }
       if (kKoeln) {
-        return 'ca-app-pub-3940256099942544/1033173712'; // TODO Köln: Google TEST geçiş, gerçeğiyle değiştir
+        return 'ca-app-pub-5799565273289643/1827938514'; // Köln geçiş
       }
       return kMersin
           ? 'ca-app-pub-5799565273289643/5073676271' // Mersin geçiş

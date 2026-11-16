@@ -10,9 +10,7 @@ Flavor: `koeln`  |  Paket: com.hasan.koeln_genc  |  Diller: Almanca (varsayılan
 ## Yayından önce elle yapılacaklar
 1. Firebase: yeni proje -> android/app/src/koeln/google-services.json (paket com.hasan.koeln_genc)
    Bu dosya olmadan Köln derlenmez. Authentication (yönetici e-postası) + Firestore kuralları.
-2. AdMob: yeni uygulama aç. ŞU AN GOOGLE TEST KİMLİKLERİ VAR:
-   - android/app/build.gradle.kts -> koeln admobAppId
-   - lib/services/ad_service.dart -> kKoeln banner ve geçiş kimlikleri
+2. AdMob: gerçek kimlikler girildi (build.gradle.kts admobAppId, ad_service.dart kKoeln).
    AdMob > Gizlilik ve mesajlaşma > Avrupa düzenlemeleri mesajını yayınla.
 3. Keystore: android/key-koeln.properties + .jks (yeni üret, yedekle)
 4. Gizlilik politikası: https://claude.ai/artifact/FymGSBYXUeSSwCbL6icSX4
