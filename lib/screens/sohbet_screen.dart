@@ -109,11 +109,22 @@ class _SohbetScreenState extends State<SohbetScreen> {
     final text = _controller.text.trim();
     if (text.isEmpty || _isim == null) return;
     _controller.clear();
-    await FirebaseFirestore.instance.collection('sohbet').add({
-      'mesaj': text,
-      'isim': _isim,
-      'zaman': FieldValue.serverTimestamp(),
-    });
+    try {
+      await FirebaseFirestore.instance.collection('sohbet').add({
+        'mesaj': text,
+        'isim': _isim,
+        'zaman': FieldValue.serverTimestamp(),
+      });
+    } on FirebaseException catch (e) {
+      // Örn. Firestore kuralları yazmaya izin vermiyorsa (permission-denied)
+      if (!mounted) return;
+      _controller.text = text;
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(tx('Mesaj gönderilemedi (${e.code})',
+              'Bericht niet verzonden (${e.code})',
+              'Message not sent (${e.code})',
+              'Nachricht nicht gesendet (${e.code})'))));
+    }
   }
 
   // Mesaj zamanı (sunucu zamanı henüz gelmediyse şimdi kabul edilir)
