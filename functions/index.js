@@ -1,9 +1,8 @@
 // Toros Genç Mobil - push bildirimleri (Firebase Cloud Functions, 2. nesil)
 //
-// Uygulama 3 konuya (topic) abone olur: sohbet, yemek, duyuru
+// Uygulama 2 konuya (topic) abone olur: sohbet, duyuru
 //  1) sohbetBildirimi : sohbet odasına her 5 mesajda bir bildirim
-//  2) gununMenusu     : her gün 11:00'de (Türkiye saati) günün yemek menüsü
-//  3) duyuruBildirimi : yönetici ekranında "bildirim gönder" işaretli
+//  2) duyuruBildirimi : yönetici ekranında "bildirim gönder" işaretli
 //                       (ya da JSON'da "bildirim": true) yeni duyuru/etkinlik
 //
 // Kurulum ve yayınlama: TOROS_NOTLAR.md
@@ -13,9 +12,8 @@ const { getFirestore, FieldValue } = require("firebase-admin/firestore");
 const { getMessaging } = require("firebase-admin/messaging");
 const { setGlobalOptions } = require("firebase-functions/v2");
 const { onDocumentCreated } = require("firebase-functions/v2/firestore");
-const { onSchedule } = require("firebase-functions/v2/scheduler");
 const logger = require("firebase-functions/logger");
-const { SAAT_DILIMI, bugunTr, bugununMu, kisalt } = require("./tarih");
+const { kisalt } = require("./yardimci");
 
 // Firestore konumu "eur3" ise europe-west1, "nam5" ise us-central1,
 // tek bölge ise (ör. europe-west3) aynısını yaz.
@@ -66,26 +64,7 @@ exports.sohbetBildirimi = onDocumentCreated("sohbet/{mesajId}", async () => {
   );
 });
 
-// ---------------------------------------------------------- 2) GÜNÜN MENÜSÜ
-exports.gununMenusu = onSchedule(
-  { schedule: "0 11 * * *", timeZone: SAAT_DILIMI },
-  async () => {
-    const bugun = bugunTr();
-    const snap = await db().collection("yemekler").get();
-    const kayit = snap.docs
-      .map((d) => d.data())
-      .find((m) => m.aktif !== false && bugununMu(m, bugun));
-    if (!kayit || !String(kayit.yemek || "").trim()) {
-      logger.info("Bugün için menü yok, bildirim gönderilmedi", bugun);
-      return;
-    }
-    const menu = String(kayit.yemek)
-      .split("\n").map((s) => s.trim()).filter(Boolean).join(", ");
-    await gonder("yemek", "🍽️ Günün menüsü", kisalt(menu, 180));
-  }
-);
-
-// ------------------------------------------------- 3) DUYURU / ETKİNLİK
+// ------------------------------------------------- 2) DUYURU / ETKİNLİK
 exports.duyuruBildirimi = onDocumentCreated(
   "duyuru_etkinlik/{id}",
   async (event) => {

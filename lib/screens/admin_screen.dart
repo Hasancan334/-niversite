@@ -25,11 +25,11 @@ class _AdminScreenState extends State<AdminScreen> {
   // Duyuru/etkinlik yayınlanınca kullanıcılara push bildirimi (Toros)
   bool _bildirimGonder = false;
 
-  static const _koleksiyonlar = {
+  static final _koleksiyonlar = {
     'duyuru_etkinlik': 'Duyuru / Etkinlik',
     'is_ilanlari': 'İş ilanı',
     'mekanlar': 'Mekan',
-    'yemekler': 'Yemek',
+    if (kYemekhane) 'yemekler': 'Yemek',
   };
 
   // Koleksiyona göre geçerli "tip" değerleri (null = kontrol yok)

@@ -11,11 +11,10 @@ Flavor: `toros`  |  Paket: com.hasan.toros_genc  |  Dil: Türkçe
 - Push bildirimleri (sadece Toros'ta açık; lib/config/flavor.dart -> kBildirimler):
   - Sohbet odası: her 5 mesajda bir "Sohbet odasında sohbet başladı, sen de katıl!"
     (iki bildirim arası en az 10 dakika; functions/index.js içinde SOHBET_* ile değiştir)
-  - Her gün 11:00 (Türkiye saati): günün yemek menüsü. O güne menü yoksa gitmez.
   - Duyuru/etkinlik: yönetici ekranında "Kullanıcılara bildirim gönder" kutusunu işaretle
     ya da JSON'a "bildirim": true yaz. Sadece YENİ kayıtta gider (aynı kimlikle tekrar
     yüklemek yeniden göndermez).
-- Yemek menüsünde her güne yorum (Firestore: yemek_yorumlari). Uzun basınca şikayet.
+- Yemek menüsü YOK (Toros'ta yemekhane yok; lib/config/flavor.dart -> kYemekhane).
 - Harçlık Kapısı: Tarsus'taki gibi (is_ilanlari).
 
 ## Yayından önce elle yapılacaklar

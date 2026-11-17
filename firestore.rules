@@ -17,7 +17,6 @@ service cloud.firestore {
 
     // Yönetici ekranından girilen içerik: herkes okur, sadece yönetici yazar
     match /duyuru_etkinlik/{id} { allow read: if true; allow write: if yonetici(); }
-    match /yemekler/{id}        { allow read: if true; allow write: if yonetici(); }
     match /mekanlar/{id}        { allow read: if true; allow write: if yonetici(); }
     match /is_ilanlari/{id}     { allow read: if true; allow write: if yonetici(); }
 
@@ -26,17 +25,6 @@ service cloud.firestore {
       allow read: if true;
       allow create: if request.resource.data.keys().hasOnly(['mesaj', 'isim', 'zaman'])
         && metin(request.resource.data.mesaj, 1, 200)
-        && metin(request.resource.data.isim, 1, 15)
-        && request.resource.data.zaman == request.time;
-      allow update, delete: if yonetici();
-    }
-
-    // Günün yemeğine yorumlar
-    match /yemek_yorumlari/{id} {
-      allow read: if true;
-      allow create: if request.resource.data.keys().hasOnly(['gun', 'yorum', 'isim', 'zaman'])
-        && request.resource.data.gun is int
-        && metin(request.resource.data.yorum, 1, 300)
         && metin(request.resource.data.isim, 1, 15)
         && request.resource.data.zaman == request.time;
       allow update, delete: if yonetici();

@@ -65,7 +65,7 @@ class HakkindaScreen extends StatelessWidget {
               ),
               child: Text(
                 tx('${UniversityConfig.name} öğrencileri için geliştirilmiş mobil uygulamadır. ', 'Een mobiele app voor studenten van ${UniversityConfig.name}. ', 'A mobile app for students of ${UniversityConfig.name}. ', 'Eine App für Studierende der ${UniversityConfig.name}. ') +
-                    tx('Günlük yemek listesi, anlaşmalı mekanlar, ders notları ve daha fazlasını içerir.', 'Met de academische kalender, campussen, verenigingen, studiemateriaal en nog veel meer. Dit is geen officiële app van de Universiteit van Amsterdam.', kKoeln
+                    tx(kToros ? 'Duyurular, anlaşmalı mekanlar, harçlık kapısı, ders notları ve daha fazlasını içerir.' : 'Günlük yemek listesi, anlaşmalı mekanlar, ders notları ve daha fazlasını içerir.', 'Met de academische kalender, campussen, verenigingen, studiemateriaal en nog veel meer. Dit is geen officiële app van de Universiteit van Amsterdam.', kKoeln
                         ? 'Includes the semester calendar, canteens, campus buildings, student groups and much more. This is not an official app of the University of Cologne.'
                         : 'Includes the academic calendar, campuses, student clubs, study materials and much more. This is not an official app of the University of Amsterdam.',
                     'Mit Semesterkalender, Mensen, Campus-Gebäuden, Hochschulgruppen und vielem mehr. Dies ist keine offizielle App der Universität zu Köln.'),

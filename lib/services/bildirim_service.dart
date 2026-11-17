@@ -5,11 +5,10 @@ import '../config/flavor.dart';
 ///
 /// Bildirimleri sunucu tarafı gönderir (functions/ klasöründeki Cloud Functions):
 ///  - 'sohbet' : sohbet odasında her 5 mesajda bir
-///  - 'yemek'  : her gün 11:00'de günün menüsü
 ///  - 'duyuru' : yöneticinin "bildirim": true işaretlediği duyuru/etkinlikler
 /// Uygulama sadece izin ister ve bu konulara (topic) abone olur.
 class BildirimService {
-  static const konular = ['sohbet', 'yemek', 'duyuru'];
+  static const konular = ['sohbet', 'duyuru'];
 
   static Future<void> baslat() async {
     if (!kBildirimler) return;

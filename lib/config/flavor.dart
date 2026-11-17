@@ -18,8 +18,10 @@ const bool kYabanci = kAmsterdam || kKoeln;
 // flutter build apk --flavor tarsus --dart-define=ADMIN=true
 const bool kAdminSurumu = bool.fromEnvironment('ADMIN');
 
-// Push bildirimleri (sohbet, günün menüsü, duyuru/etkinlik) ve yemek yorumları.
+// Push bildirimleri (sohbet, duyuru/etkinlik).
 // Şimdilik sadece Toros'ta açık; yayındaki uygulamalar etkilenmez.
 // Başka flavor'da açmak için buraya ekle (o projeye Cloud Functions da kurulmalı).
 const bool kBildirimler = kToros;
-const bool kYemekYorumlari = kToros;
+
+// Günlük yemekhane menüsü: Tarsus ve Mersin. (Toros'ta yemekhane yok.)
+const bool kYemekhane = !kYabanci && !kToros;

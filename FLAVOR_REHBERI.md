@@ -3,7 +3,7 @@
 Tek kod, her üniversite bir "flavor". Şu an: `tarsus`, `mersin`, `amsterdam`, `koeln`, `toros`.
 Ayrıntılar: AMSTERDAM_NOTLAR.md, KOELN_NOTLAR.md, TOROS_NOTLAR.md
 
-Push bildirimleri ve yemek yorumları sadece Toros'ta açık (lib/config/flavor.dart: kBildirimler, kYemekYorumlari).
+Push bildirimleri sadece Toros'ta açık, yemek menüsü Toros'ta yok (lib/config/flavor.dart: kBildirimler, kYemekhane).
 Sunucu tarafı: functions/ (Cloud Functions), kurallar: firestore.rules
 
 ## Çalıştırma / derleme
