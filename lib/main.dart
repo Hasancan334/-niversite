@@ -7,6 +7,7 @@ import 'config/university_config.dart';
 import 'config/flavor.dart';
 import 'l10n/dil.dart';
 import 'services/consent_service.dart';
+import 'services/bildirim_service.dart';
 import 'screens/karsilama_screen.dart';
 
 import 'screens/ana_sayfa.dart';
@@ -28,6 +29,13 @@ void main() async {
   }
 
   runApp(MyApp());
+
+  // Toros: push bildirimleri. Açılışı bekletmesin diye runApp'ten sonra.
+  if (kBildirimler) {
+    BildirimService.baslat().catchError((e) {
+      print('Bildirim başlatılamadı: $e');
+    });
+  }
 
   if (kYabanci) {
     ConsentService.amsterdamBaslat();

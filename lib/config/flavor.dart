@@ -7,7 +7,8 @@ const String kFlavor =
 const bool kMersin = kFlavor == 'mersin';
 const bool kAmsterdam = kFlavor == 'amsterdam';
 const bool kKoeln = kFlavor == 'koeln';
-const bool kTarsus = !kMersin && !kAmsterdam && !kKoeln;
+const bool kToros = kFlavor == 'toros';
+const bool kTarsus = !kMersin && !kAmsterdam && !kKoeln && !kToros;
 
 // Yurt dışı flavor'ları (Amsterdam, Köln): dil seçimi, AB reklam onayı,
 // Türkiye'ye özel bölümler (yemekhane, mekanlar, harçlık) gizli.
@@ -16,3 +17,9 @@ const bool kYabanci = kAmsterdam || kKoeln;
 // Sadece geliştirici derlemesinde yönetici ekranı açılır:
 // flutter build apk --flavor tarsus --dart-define=ADMIN=true
 const bool kAdminSurumu = bool.fromEnvironment('ADMIN');
+
+// Push bildirimleri (sohbet, günün menüsü, duyuru/etkinlik) ve yemek yorumları.
+// Şimdilik sadece Toros'ta açık; yayındaki uygulamalar etkilenmez.
+// Başka flavor'da açmak için buraya ekle (o projeye Cloud Functions da kurulmalı).
+const bool kBildirimler = kToros;
+const bool kYemekYorumlari = kToros;

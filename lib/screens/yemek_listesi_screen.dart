@@ -6,6 +6,8 @@ import '../config/app_colors.dart';
 import '../services/firebase_service.dart';
 import '../services/ad_service.dart';
 import '../widgets/banner_ad_widget.dart';
+import '../config/flavor.dart';
+import 'yemek_yorumlari.dart';
 
 class YemekListesiScreen extends StatefulWidget {
   @override
@@ -285,6 +287,14 @@ class _YemekListesiScreenState extends State<YemekListesiScreen> {
                             maxLines: bugunMu ? 4 : 2,
                             overflow: TextOverflow.ellipsis,
                           ),
+
+                          // YORUMLAR (Toros)
+                          if (kYemekYorumlari)
+                            YorumButonu(
+                              gun: gorunen[index].key!,
+                              baslik: (yemek['tarih'] ?? '').toString(),
+                              renk: anaRenk,
+                            ),
                         ],
                       ),
                     );

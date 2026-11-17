@@ -1,0 +1,54 @@
+rules_version = '2';
+
+// Toros Firebase projesi için Firestore kuralları.
+// Yayınlama: firebase deploy --only firestore:rules
+// ÖNCE aşağıdaki yönetici e-postasını kendi e-postanla değiştir!
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function yonetici() {
+      return request.auth != null
+        && request.auth.token.email == 'YONETICI_EPOSTASI@ornek.com';
+    }
+
+    function metin(s, enAz, enCok) {
+      return s is string && s.size() >= enAz && s.size() <= enCok;
+    }
+
+    // Yönetici ekranından girilen içerik: herkes okur, sadece yönetici yazar
+    match /duyuru_etkinlik/{id} { allow read: if true; allow write: if yonetici(); }
+    match /yemekler/{id}        { allow read: if true; allow write: if yonetici(); }
+    match /mekanlar/{id}        { allow read: if true; allow write: if yonetici(); }
+    match /is_ilanlari/{id}     { allow read: if true; allow write: if yonetici(); }
+
+    // Sohbet odası: herkes okur ve yeni mesaj yazar; silmeyi yönetici yapar
+    match /sohbet/{id} {
+      allow read: if true;
+      allow create: if request.resource.data.keys().hasOnly(['mesaj', 'isim', 'zaman'])
+        && metin(request.resource.data.mesaj, 1, 200)
+        && metin(request.resource.data.isim, 1, 15)
+        && request.resource.data.zaman == request.time;
+      allow update, delete: if yonetici();
+    }
+
+    // Günün yemeğine yorumlar
+    match /yemek_yorumlari/{id} {
+      allow read: if true;
+      allow create: if request.resource.data.keys().hasOnly(['gun', 'yorum', 'isim', 'zaman'])
+        && request.resource.data.gun is int
+        && metin(request.resource.data.yorum, 1, 300)
+        && metin(request.resource.data.isim, 1, 15)
+        && request.resource.data.zaman == request.time;
+      allow update, delete: if yonetici();
+    }
+
+    // Şikayetler: herkes yazar, sadece yönetici okur
+    match /sikayetler/{id} {
+      allow create: if request.resource.data.size() <= 6;
+      allow read, update, delete: if yonetici();
+    }
+
+    // sayaclar/* sadece Cloud Functions (yönetici SDK'sı kuralları atlar)
+    match /{belge=**} { allow read, write: if false; }
+  }
+}

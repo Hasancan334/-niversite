@@ -4,7 +4,8 @@ import 'flavor.dart';
 class AppColors {
   // Ana Renkler
   // Köln: kendi seçtiğimiz petrol mavisi (üniversitenin kurumsal renklerini taklit etmiyoruz)
-  static const Color primary = kAmsterdam ? Color(0xFFBC0031) : (kKoeln ? Color(0xFF0E5A73) : Color(0xFF182850));      // Tarsus Üni lacivert
+  // Toros: kendi seçtiğimiz koyu yeşil + turuncu
+  static const Color primary = kAmsterdam ? Color(0xFFBC0031) : (kKoeln ? Color(0xFF0E5A73) : (kToros ? Color(0xFF1B5E3A) : Color(0xFF182850)));      // Tarsus Üni lacivert
   static const Color primaryDark = kAmsterdam ? Color(0xFF2B2B2B) : (kKoeln ? Color(0xFF263238) : Color(0xFFE87000));  // Tarsus Üni turuncu
   static const Color primaryLight = kAmsterdam ? Color(0xFFE8899F) : (kKoeln ? Color(0xFF7FB3C4) : Color(0xFFF5A55C)); // Açık turuncu
 

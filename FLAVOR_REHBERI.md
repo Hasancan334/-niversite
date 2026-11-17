@@ -1,7 +1,10 @@
 # Üniversite Genç Mobil - Flavor Rehberi
 
-Tek kod, her üniversite bir "flavor". Şu an: `tarsus`, `mersin`, `amsterdam`, `koeln`.
-Ayrıntılar: AMSTERDAM_NOTLAR.md, KOELN_NOTLAR.md
+Tek kod, her üniversite bir "flavor". Şu an: `tarsus`, `mersin`, `amsterdam`, `koeln`, `toros`.
+Ayrıntılar: AMSTERDAM_NOTLAR.md, KOELN_NOTLAR.md, TOROS_NOTLAR.md
+
+Push bildirimleri ve yemek yorumları sadece Toros'ta açık (lib/config/flavor.dart: kBildirimler, kYemekYorumlari).
+Sunucu tarafı: functions/ (Cloud Functions), kurallar: firestore.rules
 
 ## Çalıştırma / derleme
 - Çalıştır:        flutter run --flavor tarsus
@@ -14,7 +17,8 @@ Android Studio: Run > Edit Configurations > "Build flavor" alanına tarsus veya 
 ## Gizli dosyalar (GitHub'da YOK, her flavor için elle konur)
 - android/app/src/tarsus/google-services.json
 - android/app/src/mersin/google-services.json
-- android/key-tarsus.properties, android/key-mersin.properties, android/key-amsterdam.properties (+ ilgili .jks dosyaları)
+- android/app/src/amsterdam, koeln, toros/google-services.json
+- android/key-tarsus.properties, android/key-mersin.properties, android/key-amsterdam.properties, android/key-koeln.properties, android/key-toros.properties (+ ilgili .jks dosyaları)
   Biçim: storePassword, keyPassword, keyAlias, storeFile (yolda / kullan)
   Tarsus/Mersin için dosya yoksa eski android/key.properties kullanılır; Amsterdam için kullanılmaz.
 

@@ -12,7 +12,7 @@ plugins {
 //   key-tarsus.properties, key-mersin.properties, key-amsterdam.properties
 // Tarsus ve Mersin için bulunamazsa eski key.properties kullanılır.
 // Amsterdam ve Köln için YALNIZCA kendi dosyası (yanlış anahtarla imzalamayı önler).
-//   key-amsterdam.properties, key-koeln.properties
+//   key-amsterdam.properties, key-koeln.properties, key-toros.properties
 fun loadKeyProps(names: List<String>): Properties? {
     for (n in names) {
         val f = rootProject.file(n)
@@ -53,7 +53,8 @@ android {
             "tarsus" to listOf("key-tarsus.properties", "key.properties"),
             "mersin" to listOf("key-mersin.properties", "key.properties"),
             "amsterdam" to listOf("key-amsterdam.properties"),
-            "koeln" to listOf("key-koeln.properties")
+            "koeln" to listOf("key-koeln.properties"),
+            "toros" to listOf("key-toros.properties")
         )
         for ((flavor, dosyalar) in anahtarDosyalari) {
             val p = loadKeyProps(dosyalar)
@@ -93,6 +94,15 @@ android {
             versionCode = 1
             resValue("string", "app_name", "Studienguide Köln")
             manifestPlaceholders["admobAppId"] = "ca-app-pub-5799565273289643~9706428534"
+        }
+        create("toros") {
+            dimension = "uni"
+            signingConfig = signingConfigs.findByName("torosRelease")
+            applicationId = "com.hasan.toros_genc"
+            versionCode = 1
+            resValue("string", "app_name", "Toros Üniversitesi Genç Mobil")
+            // Google TEST AdMob uygulama kimliği; yayından önce gerçek kimlikle değiştir
+            manifestPlaceholders["admobAppId"] = "ca-app-pub-3940256099942544~3347511713"
         }
         create("mersin") {
             dimension = "uni"

@@ -39,6 +39,7 @@ dependencies:
   firebase_storage: ^11.5.6
   firebase_auth: ^4.16.0
   google_fonts: ^6.1.0
+  firebase_messaging: ^14.7.9  # Toros push bildirimleri
 
   # UI & Utils
   cached_network_image: ^3.3.0
@@ -70,6 +71,7 @@ flutter:
     - assets/images/mersin_logo.jpeg
     - assets/images/amsterdam_logo.png
     - assets/images/koeln_logo.png
+    - assets/images/toros_logo.png
 
 
 

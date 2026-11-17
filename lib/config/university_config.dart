@@ -7,6 +7,8 @@ class UniversityConfig {
       ? "Universiteit van Amsterdam"
       : kKoeln
       ? "Universität zu Köln"
+      : kToros
+      ? "Toros Üniversitesi"
       : (kMersin ? "Mersin Üniversitesi" : "Tarsus Üniversitesi");
   static const String appName =
       kAmsterdam
@@ -16,6 +18,8 @@ class UniversityConfig {
       ? "Studentengids Amsterdam – UvA"
       : kKoeln
       ? "Studienguide Köln"
+      : kToros
+      ? "Toros Üniversitesi Genç Mobil"
       : (kMersin
           ? "Mersin Üniversitesi Genç Mobil"
           : "Tarsus Üniversitesi Genç Mobil");
@@ -25,6 +29,8 @@ class UniversityConfig {
       ? 'https://login.canvas.uva.nl/'
       : kKoeln
       ? 'https://klips2.uni-koeln.de/'
+      : kToros
+      ? 'https://obsogrenci.toros.edu.tr/' // doğrulanacak (TOROS_NOTLAR.md)
       : (kMersin ? 'https://obs.mersin.edu.tr' : 'https://obs.tarsus.edu.tr');
 
   // Ana sayfadaki logo
@@ -32,6 +38,8 @@ class UniversityConfig {
       ? 'assets/images/amsterdam_logo.png'
       : kKoeln
       ? 'assets/images/koeln_logo.png'
+      : kToros
+      ? 'assets/images/toros_logo.png'
       : (kMersin ? 'assets/images/mersin_logo.jpeg' : 'assets/images/1024.png');
 
   static const Color primaryColor = AppColors.primary;

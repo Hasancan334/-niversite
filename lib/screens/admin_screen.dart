@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../config/app_colors.dart';
+import '../config/flavor.dart';
 
 /// Gizli yönetici ekranı: JSON yapıştır -> Yayınla.
 /// Giriş: Firebase Authentication (e-posta / şifre).
@@ -21,6 +22,8 @@ class _AdminScreenState extends State<AdminScreen> {
   bool _yukleniyor = false;
   String? _mesaj;
   bool _hata = false;
+  // Duyuru/etkinlik yayınlanınca kullanıcılara push bildirimi (Toros)
+  bool _bildirimGonder = false;
 
   static const _koleksiyonlar = {
     'duyuru_etkinlik': 'Duyuru / Etkinlik',
@@ -159,6 +162,12 @@ class _AdminScreenState extends State<AdminScreen> {
         for (var i = baslangic; i < son; i++) {
           final veri = Map<String, dynamic>.from(kayitlar[i].value as Map);
           veri.putIfAbsent('aktif', () => true);
+          // Cloud Function yeni kayıtta "bildirim": true görürse bildirim yollar
+          if (kBildirimler &&
+              koleksiyon == 'duyuru_etkinlik' &&
+              _bildirimGonder) {
+            veri['bildirim'] = true;
+          }
           veri['eklenme'] = FieldValue.serverTimestamp();
           final id = kayitlar[i].key;
           // Kimlik verildiyse aynı kayıt tekrar yüklenince üzerine yazılır
@@ -222,6 +231,15 @@ class _AdminScreenState extends State<AdminScreen> {
               .toList(),
           onChanged: (v) => setState(() => _koleksiyon = v ?? _koleksiyon),
         ),
+        if (kBildirimler && _koleksiyon == 'duyuru_etkinlik')
+          CheckboxListTile(
+            contentPadding: EdgeInsets.zero,
+            value: _bildirimGonder,
+            onChanged: (v) => setState(() => _bildirimGonder = v ?? false),
+            title: Text('Kullanıcılara bildirim gönder'),
+            subtitle: Text(
+                'Sadece yeni kayıtlar için. JSON içinde "bildirim": true da yazabilirsin.'),
+          ),
         SizedBox(height: 12),
         TextField(
           controller: _json,
