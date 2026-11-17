@@ -101,8 +101,7 @@ android {
             applicationId = "com.hasan.toros_genc"
             versionCode = 1
             resValue("string", "app_name", "Toros Üniversitesi Genç Mobil")
-            // Google TEST AdMob uygulama kimliği; yayından önce gerçek kimlikle değiştir
-            manifestPlaceholders["admobAppId"] = "ca-app-pub-3940256099942544~3347511713"
+            manifestPlaceholders["admobAppId"] = "ca-app-pub-5799565273289643~5544037847"
         }
         create("mersin") {
             dimension = "uni"

@@ -13,7 +13,7 @@ class AdService {
         return 'ca-app-pub-5799565273289643/5491851357'; // Köln banner
       }
       if (kToros) {
-        return 'ca-app-pub-3940256099942544/6300978111'; // Toros: Google TEST, yayından önce değiştir
+        return 'ca-app-pub-5799565273289643/8243574563'; // Toros banner
       }
       return kMersin
           ? 'ca-app-pub-5799565273289643/6386757943' // Mersin banner
@@ -34,7 +34,7 @@ class AdService {
         return 'ca-app-pub-5799565273289643/1827938514'; // Köln geçiş
       }
       if (kToros) {
-        return 'ca-app-pub-3940256099942544/1033173712'; // Toros: Google TEST, yayından önce değiştir
+        return 'ca-app-pub-5799565273289643/3475618562'; // Toros geçiş
       }
       return kMersin
           ? 'ca-app-pub-5799565273289643/5073676271' // Mersin geçiş

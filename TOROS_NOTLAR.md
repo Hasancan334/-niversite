@@ -32,8 +32,8 @@ Flavor: `toros`  |  Paket: com.hasan.toros_genc  |  Dil: Türkçe
    Firestore konumu eur3 değilse functions/index.js içindeki BOLGE'yi değiştir
    (nam5 -> us-central1, tek bölge -> aynı bölge adı).
    Not: Bu functions sadece Toros projesine yüklenmeli; diğer projelere `firebase use` ile dikkat.
-3. AdMob: şu an Google TEST kimlikleri. Gerçek kimlikleri gir:
-   build.gradle.kts (toros admobAppId) ve lib/services/ad_service.dart (kToros)
+3. AdMob: gerçek kimlikler girildi (build.gradle.kts toros admobAppId, ad_service.dart kToros).
+   Geliştirirken kendi reklamına tıklama; telefonunu AdMob'da test cihazı olarak ekle.
 4. Keystore: android/key-toros.properties + .jks (yeni üret, yedekle)
 5. OBS adresi doğrulanacak: lib/config/university_config.dart (şimdilik https://obsogrenci.toros.edu.tr/)
 6. Logo: assets/images/toros_logo.png bizim geçici tasarımımız. Üniversite logosunu izinsiz kullanma.
