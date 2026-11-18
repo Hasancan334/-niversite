@@ -30,6 +30,16 @@ service cloud.firestore {
       allow update, delete: if yonetici();
     }
 
+    // Anlaşmalı mekan indirim kullanımı (günde bir kez kontrolü için okunur)
+    match /kullanim_gecmisi/{id} {
+      allow read: if true;
+      allow create: if request.resource.data.keys().hasOnly(
+          ['userId', 'mekanId', 'mekanAdi', 'tarih', 'saat', 'timestamp', 'konum', 'indirimOrani'])
+        && metin(request.resource.data.userId, 1, 80)
+        && request.resource.data.timestamp == request.time;
+      allow update, delete: if yonetici();
+    }
+
     // Şikayetler: herkes yazar, sadece yönetici okur
     match /sikayetler/{id} {
       allow create: if request.resource.data.size() <= 6;

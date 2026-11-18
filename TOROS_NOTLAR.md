@@ -40,3 +40,5 @@ Flavor: `toros`  |  Paket: com.hasan.toros_genc  |  Dil: Türkçe
    Uygulama simgesi: android/app/src/toros/res/mipmap-* (şu an Tarsus simgesi kullanılır)
 7. Fakülte/ders notu ve kulüp verileri Tarsus'tan geliyor (fakulte_data.dart, kulupler_data.dart); Toros'a göre düzenle.
 8. Play Console: Veri güvenliği formunda "kullanıcı içeriği (sohbet, yorum)" ve bildirimleri belirt.
+9. Gizlilik politikası: https://claude.ai/artifact/Vx9RyQdPRsWKwsCLzL5fcU
+   (Share menüsünden "Anyone with the link" yapılmalı; Play Console bu adresi ister)
