@@ -15,6 +15,9 @@ class AdService {
       if (kToros) {
         return 'ca-app-pub-5799565273289643/8243574563'; // Toros banner
       }
+      if (kSelcuk) {
+        return 'ca-app-pub-3940256099942544/6300978111'; // TODO Selçuk: Google TEST banner, gerçeğiyle değiştir
+      }
       return kMersin
           ? 'ca-app-pub-5799565273289643/6386757943' // Mersin banner
           : 'ca-app-pub-5799565273289643/2765238361'; // Tarsus banner
@@ -35,6 +38,9 @@ class AdService {
       }
       if (kToros) {
         return 'ca-app-pub-5799565273289643/3475618562'; // Toros geçiş
+      }
+      if (kSelcuk) {
+        return 'ca-app-pub-3940256099942544/1033173712'; // TODO Selçuk: Google TEST geçiş, gerçeğiyle değiştir
       }
       return kMersin
           ? 'ca-app-pub-5799565273289643/5073676271' // Mersin geçiş

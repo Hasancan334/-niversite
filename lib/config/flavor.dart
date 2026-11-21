@@ -8,7 +8,9 @@ const bool kMersin = kFlavor == 'mersin';
 const bool kAmsterdam = kFlavor == 'amsterdam';
 const bool kKoeln = kFlavor == 'koeln';
 const bool kToros = kFlavor == 'toros';
-const bool kTarsus = !kMersin && !kAmsterdam && !kKoeln && !kToros;
+const bool kSelcuk = kFlavor == 'selcuk';
+const bool kTarsus =
+    !kMersin && !kAmsterdam && !kKoeln && !kToros && !kSelcuk;
 
 // Yurt dışı flavor'ları (Amsterdam, Köln): dil seçimi, AB reklam onayı,
 // Türkiye'ye özel bölümler (yemekhane, mekanlar, harçlık) gizli.

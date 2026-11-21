@@ -12,7 +12,7 @@ plugins {
 //   key-tarsus.properties, key-mersin.properties, key-amsterdam.properties
 // Tarsus ve Mersin için bulunamazsa eski key.properties kullanılır.
 // Amsterdam ve Köln için YALNIZCA kendi dosyası (yanlış anahtarla imzalamayı önler).
-//   key-amsterdam.properties, key-koeln.properties, key-toros.properties
+//   key-amsterdam.properties, key-koeln.properties, key-toros.properties, key-selcuk.properties
 fun loadKeyProps(names: List<String>): Properties? {
     for (n in names) {
         val f = rootProject.file(n)
@@ -54,7 +54,8 @@ android {
             "mersin" to listOf("key-mersin.properties", "key.properties"),
             "amsterdam" to listOf("key-amsterdam.properties"),
             "koeln" to listOf("key-koeln.properties"),
-            "toros" to listOf("key-toros.properties")
+            "toros" to listOf("key-toros.properties"),
+            "selcuk" to listOf("key-selcuk.properties")
         )
         for ((flavor, dosyalar) in anahtarDosyalari) {
             val p = loadKeyProps(dosyalar)
@@ -102,6 +103,15 @@ android {
             versionCode = 1
             resValue("string", "app_name", "Toros Üniversitesi Genç Mobil")
             manifestPlaceholders["admobAppId"] = "ca-app-pub-5799565273289643~5544037847"
+        }
+        create("selcuk") {
+            dimension = "uni"
+            signingConfig = signingConfigs.findByName("selcukRelease")
+            applicationId = "com.hasan.selcuk_genc"
+            versionCode = 1
+            resValue("string", "app_name", "Selçuk Üniversitesi Genç Mobil")
+            // TODO: Google'ın TEST AdMob uygulama kimliği. Yayından önce Selçuk'un gerçek kimliğini yaz.
+            manifestPlaceholders["admobAppId"] = "ca-app-pub-3940256099942544~3347511713"
         }
         create("mersin") {
             dimension = "uni"

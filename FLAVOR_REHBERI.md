@@ -1,6 +1,6 @@
 # Üniversite Genç Mobil - Flavor Rehberi
 
-Tek kod, her üniversite bir "flavor". Şu an: `tarsus`, `mersin`, `amsterdam`, `koeln`, `toros`.
+Tek kod, her üniversite bir "flavor". Şu an: `tarsus`, `mersin`, `amsterdam`, `koeln`, `toros`, `selcuk`. `toros`.
 Ayrıntılar: AMSTERDAM_NOTLAR.md, KOELN_NOTLAR.md, TOROS_NOTLAR.md
 
 Push bildirimleri sadece Toros'ta açık, yemek menüsü Toros'ta yok (lib/config/flavor.dart: kBildirimler, kYemekhane).
