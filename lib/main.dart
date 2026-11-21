@@ -22,13 +22,17 @@ void main() async {
   // Firebase başlat
   await Firebase.initializeApp();
 
-  // Tarsus/Mersin: AdMob eskisi gibi hemen başlar.
+  runApp(MyApp());
+
+  // Türkiye flavor'ları: AdMob ekran açıldıktan sonra arka planda başlar
+  // (beklenirse yavaş internette uygulama beyaz ekranda kalıyordu).
+  // Reklamlar ConsentService.reklamHazir olunca kendiliğinden yüklenir.
   // Amsterdam/Köln: AdMob, UMP onayı alındıktan sonra (canRequestAds) başlar.
   if (!kYabanci) {
-    await ConsentService.onaysizBaslat();
+    ConsentService.onaysizBaslat().catchError((e) {
+      print('AdMob başlatılamadı: $e');
+    });
   }
-
-  runApp(MyApp());
 
   // Toros: push bildirimleri. Açılışı bekletmesin diye runApp'ten sonra.
   if (kBildirimler) {
