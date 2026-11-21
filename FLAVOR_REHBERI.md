@@ -6,6 +6,11 @@ Ayrıntılar: AMSTERDAM_NOTLAR.md, KOELN_NOTLAR.md, TOROS_NOTLAR.md
 Push bildirimleri sadece Toros'ta açık, yemek menüsü Toros'ta yok (lib/config/flavor.dart: kBildirimler, kYemekhane).
 Sunucu tarafı: functions/ (Cloud Functions), kurallar: firestore.rules
 
+## Güncelleme (git pull yerine)
+- powershell -ExecutionPolicy Bypass -File guncelle.ps1
+  Kaydedilmemiş yerel değişiklik varsa durur ve gösterir; yoksa main'i çeker, flutter clean + pub get yapar.
+  Not: git pull yerel değişiklik yüzünden sessizce başarısız olunca eski kod derleniyordu (eski logo, test reklamları).
+
 ## Çalıştırma / derleme
 - Çalıştır:        flutter run --flavor tarsus
 - Play için AAB:   flutter build appbundle --flavor tarsus --release
