@@ -36,7 +36,7 @@ class UniversityConfig {
       : kToros
       ? 'https://obsogrenci.toros.edu.tr/' // doğrulanacak (TOROS_NOTLAR.md)
       : kSelcuk
-      ? 'https://obs.selcuk.edu.tr/' // doğrulanacak (SELCUK_NOTLAR.md)
+      ? 'https://obis2.selcuk.edu.tr/'
       : (kMersin ? 'https://obs.mersin.edu.tr' : 'https://obs.tarsus.edu.tr');
 
   // Ana sayfadaki logo

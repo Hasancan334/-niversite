@@ -20,7 +20,7 @@ Flavor: `selcuk`  |  Paket: com.hasan.selcuk_genc  |  Dil: Türkçe
    - android/app/build.gradle.kts -> selcuk admobAppId
    - lib/services/ad_service.dart -> kSelcuk banner ve geçiş
 3. Keystore: android/key-selcuk.properties + .jks (yeni üret, yedekle)
-4. OBS adresi doğrulanacak: lib/config/university_config.dart (şimdilik https://obs.selcuk.edu.tr/)
+4. OBS: https://obis2.selcuk.edu.tr/ (lib/config/university_config.dart)
 5. Logo: assets/images/selcuk_logo.png geçici tasarım. Üniversite logosunu izinsiz kullanma.
    Uygulama simgesi: android/app/src/selcuk/res/mipmap-* (yoksa Tarsus simgesi görünür;
    ic_launcher, ic_launcher_adaptive_back, ic_launcher_adaptive_fore - 5 yoğunluk)
