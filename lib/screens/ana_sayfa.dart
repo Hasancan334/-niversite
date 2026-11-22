@@ -100,6 +100,8 @@ class _AnaSayfaState extends State<AnaSayfa> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Selçuk: ana sayfa arka planı açık mavi
+      backgroundColor: kSelcuk ? Color(0xFF97CBF2) : null,
       bottomNavigationBar: BannerAdWidget(),
       appBar: AppBar(
         backgroundColor: Colors.white,
