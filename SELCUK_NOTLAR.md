@@ -26,4 +26,5 @@ Flavor: `selcuk`  |  Paket: com.hasan.selcuk_genc  |  Dil: Türkçe
    ic_launcher, ic_launcher_adaptive_back, ic_launcher_adaptive_fore - 5 yoğunluk)
 6. Kulüp ve ders notu verileri ŞİMDİLİK TARSUS'UN (kulupler_data.dart, fakulte_data.dart).
    Ekran görüntüsü alırken bu ekranlara dikkat.
-7. Gizlilik politikası hazırlanacak; Play Console web sitesi: https://hasancan334.github.io
+7. Gizlilik politikası: https://claude.ai/artifact/J3yL3Ca8427KjCm8tuEzfX
+   (Share menüsünden "Anyone with the link" yapılmalı). Play Console web sitesi: https://hasancan334.github.io
